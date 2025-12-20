@@ -28,7 +28,7 @@ const CourseDetailsPage : FC<Props> = ({id}) => {
         setStripePromise(loadStripe(publishableKey))
       }
       if(data){
-        const amount = Math.round(data.course.price * 100)
+        const amount = Math.round(data?.course.price * 100)
         createPaymentIntent(amount)
       }
   },[data,config])

@@ -1,11 +1,11 @@
-import CourseDetailsPage from '@/app/components/Course/CourseDetailsPage'
-import React from 'react'
+import CourseDetailsPage from "@/app/components/Course/CourseDetailsPage"
 
 
-const page = ({params} : any) => {
+const page = async ({params} : any) => {
+  const resolvedParams = await params;
   return (
     <div>
-        <CourseDetailsPage id={params.id}/>
+        <CourseDetailsPage id={resolvedParams.id}/>
     </div>
   )
 }
