@@ -26,10 +26,7 @@ const nextConfig: NextConfig = {
     ],
   },
   typescript: {
-    ignoreBuildErrors: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+    ignoreBuildErrors: true,
   },
   turbopack: {},
   webpack: (config, { isServer }) => {
@@ -41,7 +38,6 @@ const nextConfig: NextConfig = {
         tls: false,
       }
     }
-    // Increase memory limit for large builds
     config.optimization = {
       ...config.optimization,
       moduleIds: 'deterministic',
