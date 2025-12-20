@@ -6,8 +6,8 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./build",
-    "rootDir": "../server"
+    "rootDir": "./"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["./**/*"],
+  "exclude": ["node_modules", "build"]
 }
