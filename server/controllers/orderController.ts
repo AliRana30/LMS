@@ -17,7 +17,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export const createOrder = catchAsyncErrors(async(req: Request, res: Response, next: NextFunction) => {
     try {
         const { courseId, payment_info } = req.body as IOrder;
-        const userId = req.user?._id; 
+        const userId = req.user?._id?.toString() || '';
 
         if(payment_info){
             if("id" in payment_info){
@@ -85,7 +85,6 @@ export const createOrder = catchAsyncErrors(async(req: Request, res: Response, n
         // Add course to user's courses
         user.courses.push(course._id);
 
-        const userId = req.user?._id?.toString() || '';
         await redis.set(userId, JSON.stringify(user));
         await user.save();
         
