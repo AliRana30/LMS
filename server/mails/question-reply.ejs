@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Reply Notification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 16px;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .video-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        .video-box h2 {
+            font-size: 18px;
+            color: #333333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .video-title {
+            font-size: 16px;
+            color: #667eea;
+            font-weight: 500;
+        }
+        .question-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .question-box p {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .question-text {
+            font-size: 15px;
+            color: #333333;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .reply-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .reply-box p {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .reply-text {
+            font-size: 15px;
+            color: #333333;
+            line-height: 1.5;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer p {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e9ecef;
+            margin: 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 New Reply Notification</h1>
+            <p>Someone responded to your question!</p>
+        </div>
+        
+        <div class="content">
+            <p class="greeting">Hi <%= name %>,</p>
+
+            <div class="video-box">
+                <h2>📹 Video</h2>
+                <p class="video-title"><%= videoTitle %></p>
+            </div>
+
+            <div class="question-box">
+                <p>Your Question:</p>
+                <p class="question-text">"<%= question %>"</p>
+            </div>
+
+            <div class="reply-box">
+                <p>Reply:</p>
+                <p class="question-text">"<%= answer %>"</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <p class="message" style="font-size: 14px; color: #6c757d;">
+                Keep the conversation going! Reply to this response or ask follow-up questions to deepen your understanding.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; <%= new Date().getFullYear() %> CampusCore. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

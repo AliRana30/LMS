@@ -1,0 +1,57 @@
+import { NextFunction, Request, Response } from "express";
+import { catchAsyncErrors } from "../middlewares/catchAsyncErrors";
+import ErrorHandler from "../utlis/errorHandler";
+import { Notification } from "../models/Notification";
+import cron from "node-cron"
+
+// get all notifications --only admin
+export const getNotifications = catchAsyncErrors(async(req : Request , res : Response , next : NextFunction) =>{
+     try {
+        
+        const notifications = await Notification.find().sort({createdAt : -1})
+
+        res.status(200).json({
+            success : true,
+            message : "Notifications fetched successfully",
+            notifications
+        })
+     } catch (error : any) {
+        return next(new ErrorHandler(error.message , 400))
+     }
+})
+
+// update notification status --only admin
+
+export const updateNotification = catchAsyncErrors(async(req : Request , res : Response , next : NextFunction) =>{
+  try {
+     const notification = await Notification.findById(req.params.id)
+     if(!notification){
+        return next(new ErrorHandler("Notification Not Found" , 400))
+        
+     }
+     else{
+        notification?.status ? (notification.status = "read"): notification?.status
+    }
+
+    await notification?.save()
+
+    const notifications = await Notification.find().sort({createdAt : -1})
+
+    res.status(200).json({
+        success : true,
+        message : "Notification updated successfully",
+        notifications
+    })
+
+  } catch (error : any) {
+        return next(new ErrorHandler(error.message , 400))
+     }
+})
+
+// delete notification -- only admin -- after every 12 hours
+cron.schedule("0 0 0 * * *" , async()=>{
+   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+
+   // delete after 30 days automatically only if the notification is read 
+   await Notification.deleteMany({status : "read" , createdAt : {$lt : thirtyDaysAgo}}) // lt means less than
+})
