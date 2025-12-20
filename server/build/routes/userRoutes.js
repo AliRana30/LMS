@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const userController_1 = require("../controllers/userController");
+const auth_1 = require("../middlewares/auth");
+exports.userRouter = express_1.default.Router();
+exports.userRouter.post("/register", userController_1.registerUser);
+exports.userRouter.post("/activate-user", userController_1.activateUser);
+exports.userRouter.post("/login", userController_1.loginUser);
+exports.userRouter.get("/logout", auth_1.isAuthenticated, userController_1.logOutUser);
+exports.userRouter.get("/refresh-token", auth_1.updateAccessToken);
+exports.userRouter.get("/me", auth_1.updateAccessToken, auth_1.isAuthenticated, auth_1.getUserInfo);
+exports.userRouter.post("/social-auth", auth_1.socialAuth);
+exports.userRouter.put("/update-user-info", auth_1.updateAccessToken, auth_1.isAuthenticated, auth_1.updateUserInfo);
+exports.userRouter.put("/update-user-password", auth_1.updateAccessToken, auth_1.isAuthenticated, userController_1.updateUserPassword);
+exports.userRouter.put("/update-user-avatar", auth_1.updateAccessToken, auth_1.isAuthenticated, userController_1.updateUserAvatar);
+exports.userRouter.get("/get-all-users", auth_1.isAuthenticated, (0, auth_1.validateUserRole)("admin"), userController_1.getAllUsersAdmin);
+exports.userRouter.put("/update-user-role/:id", auth_1.updateAccessToken, auth_1.isAuthenticated, (0, auth_1.validateUserRole)("admin"), userController_1.updateUserRole);
+exports.userRouter.delete("/delete-user/:id", auth_1.isAuthenticated, (0, auth_1.validateUserRole)("admin"), userController_1.deleteUser);
