@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { Providers } from "./Provider";
 import SessionProviderWrapper from "./components/SessionProviderWrapper";
 import { SocketProvider } from "./utils/SocketProvider";
+import AuthLoader from "./components/Auth/AuthLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
           <SessionProviderWrapper>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <SocketProvider>
+                <AuthLoader />
                 {children}
               </SocketProvider>
               <Toaster position="top-center" reverseOrder={true} />

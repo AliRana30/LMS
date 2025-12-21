@@ -10,7 +10,6 @@ import { format } from 'timeago.js'
 import { useTheme } from 'next-themes'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '../Payment/CheckoutForm'
-import { useLoadUserQuery } from '@/redux/features/api/apiSlice'
 import Image from 'next/image'
 
 type Props = {
@@ -23,20 +22,20 @@ type Props = {
 
 const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute, setOpen : openAuthModal}) => {
     const { theme } = useTheme()
-    const { data: userData , refetch} = useLoadUserQuery({})
-    const user = userData?.user
+    const { user } = useSelector((state: any) => state.auth)
     const [open, setOpen] = useState(false);
     const discountPercentage = data?.estimatedPrice && data?.price ? Math.round(((data.estimatedPrice - data.price) / data.estimatedPrice) * 100) : 0
     const isPurchased = user && user?.courses?.find((course: any) => course._id === data._id)
 
     const handleOrder = (e: any) => {
+        console.log("Buy Now clicked - User:", user ? user.name : "Not logged in");
         if(user){
             setOpen(true);
         }
         else{
+            console.log("Opening login modal");
             openAuthModal(true)
             setRoute("Login")
-            refetch()
         }
     }
 
