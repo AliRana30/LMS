@@ -8,7 +8,7 @@ export const apiSlice = createApi({
         baseUrl: process.env.NEXT_PUBLIC_API_URL ,
         credentials: 'include',
     }),
-    tagTypes: ['User', 'Auth'],
+    tagTypes: ['User', 'Auth', 'loadUser'],
     endpoints: (builder) => ({
         refreshToken: builder.query({
             query: () => ({
@@ -36,6 +36,7 @@ export const apiSlice = createApi({
                 method: 'GET',
                 credentials: 'include' as const,
             }),
+            providesTags: ['loadUser'],
             async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                 try {
                     const { data } = await queryFulfilled;

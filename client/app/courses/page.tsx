@@ -28,7 +28,9 @@ const CoursesContent = (props: Props) => {
             setCourses(data?.courses)
         }
         if (category !== "All") {
-            const filteredCourses = data?.courses?.filter((course: any) => course.category === category)
+            const filteredCourses = data?.courses?.filter((course: any) => 
+                course.categories?.toLowerCase() === category?.toLowerCase()
+            )
             setCourses(filteredCourses)
         }
         if (search) {

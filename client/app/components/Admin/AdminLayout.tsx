@@ -19,7 +19,7 @@ const AdminLayout = ({ children }: Props) => {
     <div className={`min-h-screen transition-all duration-300 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="flex flex-col lg:flex-row">
         {/* Desktop Sidebar - Always visible on large screens */}
-        <div className="hidden lg:block lg:w-[280px] lg:flex-shrink-0 lg:fixed lg:left-0 lg:top-0 lg:h-screen">
+        <div className="hidden lg:block lg:w-[280px] lg:flex-shrink-0 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:z-40">
           <AdminSidebar user={user} />
         </div>
         
@@ -32,13 +32,13 @@ const AdminLayout = ({ children }: Props) => {
           />
         </div>
         
-        <div className="w-full lg:ml-[280px] lg:flex-1">
+        <div className="w-full lg:ml-[280px] lg:flex-1 relative z-0">
           <DashboardHeader 
             open={open} 
             setOpen={setOpen} 
             onMenuClick={() => setIsSidebarOpen(true)}
           />
-          <div className="p-4 md:p-8">
+          <div className="p-4 md:p-6 lg:p-8">
             {children}
           </div>
         </div>

@@ -9,7 +9,8 @@ export const userApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: { avatar: avatar },
                 credentials: "include" as const,
-            })
+            }),
+            invalidatesTags: ["loadUser"]
         }),
         EditProfile: builder.mutation({
             query: ({ name }) => ({
@@ -17,7 +18,8 @@ export const userApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: { name },
                 credentials: "include" as const,
-            })
+            }),
+            invalidatesTags: ["loadUser"]
         }),
         updatePassword: builder.mutation({
             query: ({ oldPassword, newPassword }) => ({
@@ -25,7 +27,8 @@ export const userApi = apiSlice.injectEndpoints({
                 method: "PUT",
                 body: { oldPassword, newPassword },
                 credentials: "include" as const,
-            })
+            }),
+            invalidatesTags: ["loadUser"]
         }),
         updateUserRole: builder.mutation({
             query: ({ id, role }) => ({

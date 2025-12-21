@@ -129,7 +129,7 @@ const DashboardHeader = (props: Props) => {
   }, [openNotifications])
 
   return (
-    <div className={`w-full h-[80px] flex items-center justify-between px-4 md:px-8 border-b transition-colors duration-300 z-1 ${
+    <div className={`w-full h-[80px] flex items-center justify-between px-4 md:px-8 border-b transition-colors duration-300 sticky top-0 z-30 ${
       theme === 'dark' 
         ? 'bg-slate-900 border-slate-700/50' 
         : 'bg-white border-gray-200'

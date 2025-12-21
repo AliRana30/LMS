@@ -7,6 +7,7 @@ import { format } from 'timeago.js';
 import { AiOutlineDelete, AiOutlineMail } from 'react-icons/ai';
 import { useDeleteUserMutation, useGetAllUsersQuery, useUpdateUserRoleMutation } from '@/redux/features/user/userApi';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 type Props = {
   isTeam?: boolean;
@@ -22,7 +23,8 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   const [role, setRole] = useState("user");
   const [newMemberEmail, setNewMemberEmail] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("user");
-  
+  const {user} = useSelector((state: any) => state.auth);
+
   const [updateUserRole, { isSuccess: updateSuccess, error: updateError, isLoading: isUpdating }] = useUpdateUserRoleMutation();
   const [deleteUser, { isSuccess: deleteSuccess, error: deleteError, isLoading: isDeleting }] = useDeleteUserMutation();
   const { data, isLoading, refetch } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true });
@@ -135,7 +137,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       flex: 0.2,
       minWidth: 80,
       renderCell: (params: any) => (
-        <Button onClick={() => handleEditRole(params.row.id, params.row.role)}>
+        <Button onClick={() => handleEditRole(params.row.id, params.row.role)} disabled={isUpdating || (user && user._id === params.row.id)}>
           <Edit2 size={20} className={theme === "dark" ? "text-white" : "text-black"} />
         </Button>
       )
@@ -199,14 +201,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   }, [updateSuccess, updateError, deleteSuccess, deleteError, refetch]);
 
   return (
-    <div className={`w-full min-h-screen transition-all duration-300 font-poppins ${
-      theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
+    <div className={`w-full transition-all duration-300 font-poppins`}>
+      <div className="w-full">
+        <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
           theme === 'dark'
-            ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
-            : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
+            ? 'bg-slate-800/90 border-slate-700/50'
+            : 'bg-white border-slate-200/50'
         }`}>
           <div className={`px-6 py-5 border-b ${theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -245,11 +245,11 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             </div>
           </div>
 
-          <div className="p-4 sm:p-6 lg:p-8">
+          <div className="p-3 sm:p-4 lg:p-6">
             <Box
               className="w-full"
               sx={{
-                height: { xs: '500px', sm: '600px', md: '650px' },
+                height: { xs: '400px', sm: '500px', md: '600px', lg: '650px' },
                 width: '100%',
                 "& .MuiDataGrid-root": {
                   border: theme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",

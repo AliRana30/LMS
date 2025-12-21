@@ -2,9 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ErrorHandler from "../utlis/errorHandler";
 import { IUser, User } from "../models/User";
 import jwt, { Secret } from "jsonwebtoken";
-import ejs from "ejs";
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors";
-import path from "path";
 import { sendMail } from "../utlis/sendMail";
 import { sendToken } from "../utlis/jwt";
 import redis from "../utlis/redis";
@@ -61,10 +59,6 @@ export const registerUser = catchAsyncErrors(
       const activationCode = activationToken.activationCode;
 
       const data = { user: { name: user.name }, activationCode };
-
-      const htmlPath = path.resolve(__dirname, "../mails/activation-mail.ejs");
-
-      await ejs.renderFile(htmlPath, data);
 
       try {
         await sendMail({
@@ -250,9 +244,12 @@ export const updateUserPassword = catchAsyncErrors(
         return next(new ErrorHandler("User not found", 404));
       }
 
-      const isPasswordMatched = await user?.comparePassword(oldPassword);
-      if (!isPasswordMatched) {
-        return next(new ErrorHandler("Old password is incorrect", 400));
+      // Check if user has a password (social auth users may not have one)
+      if (user.password) {
+        const isPasswordMatched = await user?.comparePassword(oldPassword);
+        if (!isPasswordMatched) {
+          return next(new ErrorHandler("Old password is incorrect", 400));
+        }
       }
 
       user.password = newPassword;

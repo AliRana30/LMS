@@ -91,14 +91,12 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     }, [data, usersData, coursesData]);
 
     return (
-        <div className={`w-full ${isDashboard ? '' : 'min-h-screen'} transition-all duration-300 font-poppins ${
-            theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
-        }`}>
-            <div className={`${isDashboard ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8'}`}>
-                <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
+        <div className={`w-full transition-all duration-300 font-poppins`}>
+            <div className={`${isDashboard ? '' : 'w-full'}`}>
+                <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
                     theme === 'dark'
-                        ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
-                        : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
+                        ? 'bg-slate-800/90 border-slate-700/50'
+                        : 'bg-white border-slate-200/50'
                 }`}>
                     {!isDashboard && (
                         <div className={`px-6 py-5 border-b ${theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
