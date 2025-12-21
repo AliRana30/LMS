@@ -29,9 +29,13 @@ export const isAuthenticated = async (
   next: NextFunction
 ) => {
   try {
+    console.log("Auth check - Cookies:", Object.keys(req.cookies));
+    console.log("Auth check - Access Token:", req.cookies.access_token ? "present" : "missing");
+    
     const access_token = req.cookies.access_token;
 
     if (!access_token) {
+      console.log("Auth failed: No access token in cookies");
       return next(new ErrorHandler("Login first to access this resource", 401));
     }
 
@@ -41,16 +45,21 @@ export const isAuthenticated = async (
     ) as DecodedToken;
 
     if (!decoded || !decoded.id) {
+      console.log("Auth failed: Invalid token decode");
       return next(new ErrorHandler("Invalid or expired token", 400));
     }
+
+    console.log("Auth check - User ID from token:", decoded.id);
 
     // Fetch user from Redis using decoded.id
     const user = await redis.get(decoded.id);
     if (!user) {
+      console.log("Auth failed: User not found in Redis for ID:", decoded.id);
       return next(new ErrorHandler("User not found", 404));
     }
 
     req.user = JSON.parse(user);
+    console.log("Auth success - User role:", req.user?.role);
     next();
   } catch (error) {
     console.error("Auth Error:", error);

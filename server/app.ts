@@ -17,6 +17,9 @@ export const app = express();
 app.use(express.json({limit: '50mb'}));
 
 app.use(cookieParser());
+
+console.log("CORS Origin configured:", process.env.ORIGIN);
+
 app.use(cors({
     origin: process.env.ORIGIN,
     credentials: true,
