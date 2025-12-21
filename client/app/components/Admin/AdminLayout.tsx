@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react'
-import AdminSidebar from '../sidebar/AdminSidebar'
-import DashboardHeader from '../DashboardHeader'
 import { useSelector } from 'react-redux'
 import { useTheme } from 'next-themes'
+import AdminSidebar from './sidebar/AdminSidebar'
+import DashboardHeader from './DashboardHeader'
 
 type Props = {
   children: React.ReactNode
