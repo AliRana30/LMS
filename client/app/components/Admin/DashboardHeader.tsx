@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ThemeSwitcher } from '../../utils/ThemeSwitcher'
 import { IoMdNotificationsOutline } from 'react-icons/io'
+import { HiOutlineMenuAlt3 } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,6 +15,7 @@ const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 type Props = {
   open?: boolean;
   setOpen?: any;
+  onMenuClick?: () => void;
 }
 
 const DashboardHeader = (props: Props) => {
@@ -127,12 +129,24 @@ const DashboardHeader = (props: Props) => {
   }, [openNotifications])
 
   return (
-    <div className={`w-full h-[80px] flex items-center justify-end px-8 border-b transition-colors duration-300 z-1 ${
+    <div className={`w-full h-[80px] flex items-center justify-between px-4 md:px-8 border-b transition-colors duration-300 z-1 ${
       theme === 'dark' 
         ? 'bg-slate-900 border-slate-700/50' 
         : 'bg-white border-gray-200'
     }`}>
-      <div className='flex items-center gap-6'>
+      {/* Hamburger Menu Button - Only visible on mobile/tablet */}
+      <button
+        onClick={props.onMenuClick}
+        className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
+          theme === 'dark'
+            ? 'hover:bg-slate-800 text-slate-300'
+            : 'hover:bg-gray-100 text-slate-700'
+        }`}
+      >
+        <HiOutlineMenuAlt3 size={28} />
+      </button>
+
+      <div className='flex items-center gap-4 md:gap-6 ml-auto'>
         <ThemeSwitcher />
 
         <div className='relative' ref={notificationRef}>

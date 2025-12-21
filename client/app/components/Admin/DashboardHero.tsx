@@ -5,13 +5,14 @@ import DashboardWidgets from '../../components/Admin/Widgets/DashboardWidgets'
 
 type Props = {
   isDashboard?: boolean
+  onMenuClick?: () => void
 }
 
-const DashboardHero = ({ isDashboard }: Props) => {
+const DashboardHero = ({ isDashboard, onMenuClick }: Props) => {
   const [open , setOpen] = useState(false);
   return (
     <div>
-      <DashboardHeader open={open} setOpen={setOpen}/>
+      <DashboardHeader open={open} setOpen={setOpen} onMenuClick={onMenuClick}/>
         {
           isDashboard && (
               <DashboardWidgets open={open}/>

@@ -34,9 +34,11 @@ interface User {
 
 interface AdminSidebarProps {
     user?: User;
+    isOpen?: boolean;
+    onClose?: () => void;
 }
 
-const AdminSidebar = ({ user }: AdminSidebarProps) => {
+const AdminSidebar = ({ user, isOpen = true, onClose }: AdminSidebarProps) => {
     const { theme } = useTheme();
     const pathname: any = usePathname();
     const router = useRouter();
@@ -107,17 +109,35 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
         return null;
     }
 
+    const handleMenuItemClick = () => {
+        // Close sidebar on mobile when a menu item is clicked
+        if (onClose && window.innerWidth < 1024) {
+            onClose();
+        }
+    };
+
     return (
-        <div className="flex h-screen font-poppins fixed z-50">
-            <Sidebar
-                backgroundColor={isDark ? '#1e293b' : '#ffffff'}
-                width="280px"
-                style={{
-                    height: '100vh',
-                    border: 'none',
-                    borderRight: isDark ? '1px solid #334155' : '1px solid #e2e8f0'
-                }}
-            >
+        <>
+            {/* Backdrop for mobile */}
+            {isOpen && onClose && (
+                <div 
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                    onClick={onClose}
+                />
+            )}
+            
+            <div className={`flex h-screen font-poppins fixed z-50 transition-transform duration-300 lg:translate-x-0 ${
+                isOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}>
+                <Sidebar
+                    backgroundColor={isDark ? '#1e293b' : '#ffffff'}
+                    width="280px"
+                    style={{
+                        height: '100vh',
+                        border: 'none',
+                        borderRight: isDark ? '1px solid #334155' : '1px solid #e2e8f0'
+                    }}
+                >
                 <div className={`p-6 border-b ${isDark ? 'border-slate-700' : 'border-slate-200'}`}>
                     <h1 className={`text-2xl font-bold tracking-wide mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                         <Link href='/'>
@@ -150,6 +170,7 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                 <Menu
                     menuItemStyles={{
                         button: ({ active }) => ({
+                        onClick={handleMenuItemClick}
                             color: active 
                                 ? (isDark ? '#60a5fa' : '#2563eb') 
                                 : (isDark ? '#94a3b8' : '#64748b'),
@@ -165,14 +186,16 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                     }}
                 >
                     <MenuItem
-                        icon={<Home size={20} />}
-                        active={activeItem === 'dashboard'}
-                        component={<Link href="/admin" />}
+                        onClick={handleMenuItemClick}
                     >
-                        Dashboard
+                        Users
                     </MenuItem>
 
-                    <div className="px-6 pt-4 pb-2">
+                    <MenuItem
+                        icon={<FileText size={20} />}
+                        active={activeItem === 'invoices'}
+                        component={<Link href="/admin/invoices" />}
+                        onClick={handleMenuItemClick
                         <p className={`text-xs font-semibold uppercase tracking-wider ${
                             isDark ? 'text-slate-500' : 'text-slate-400'
                         }`}>
@@ -187,14 +210,16 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                     >
                         Users
                     </MenuItem>
+    onClick={handleMenuItemClick}
+                    >
+                        Create Course
+                    </MenuItem>
 
                     <MenuItem
-                        icon={<FileText size={20} />}
-                        active={activeItem === 'invoices'}
-                        component={<Link href="/admin/invoices" />}
-                    >
-                        Invoices
-                    </MenuItem>
+                        icon={<Video size={20} />}
+                        active={activeItem === 'live-courses'}
+                        component={<Link href="/admin/courses" />}
+                        onClick={handleMenuItemClick
 
                     <div className="px-6 pt-4 pb-2">
                         <p className={`text-xs font-semibold uppercase tracking-wider ${
@@ -209,22 +234,25 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                         active={activeItem === 'create-course'}
                         component={<Link href="/admin/create-course" />}
                     >
-                        Create Course
+                        onClick={handleMenuItemClick}
+                    >
+                        Hero
                     </MenuItem>
 
                     <MenuItem
-                        icon={<Video size={20} />}
-                        active={activeItem === 'live-courses'}
-                        component={<Link href="/admin/courses" />}
+                        icon={<HelpCircle size={20} />}
+                        active={activeItem === 'faq'}
+                        component={<Link href="/admin/faq" />}
+                        onClick={handleMenuItemClick}
                     >
-                        Live Courses
+                        FAQ
                     </MenuItem>
 
-                    <div className="px-6 pt-4 pb-2">
-                        <p className={`text-xs font-semibold uppercase tracking-wider ${
-                            isDark ? 'text-slate-500' : 'text-slate-400'
-                        }`}>
-                            Customization
+                    <MenuItem
+                        icon={<FolderOpen size={20} />}
+                        active={activeItem === 'categories'}
+                        component={<Link href="/admin/categories" />}
+                        onClick={handleMenuItemClick
                         </p>
                     </div>
 
@@ -238,6 +266,7 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
 
                     <MenuItem
                         icon={<HelpCircle size={20} />}
+                        onClick={handleMenuItemClick}
                         active={activeItem === 'faq'}
                         component={<Link href="/admin/faq" />}
                     >
@@ -253,22 +282,25 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                     </MenuItem>
 
                     <div className="px-6 pt-4 pb-2">
-                        <p className={`text-xs font-semibold uppercase tracking-wider ${
-                            isDark ? 'text-slate-500' : 'text-slate-400'
-                        }`}>
-                            Controllers
-                        </p>
-                    </div>
-
-                    <MenuItem
-                        icon={<UsersRound size={20} />}
-                        active={activeItem === 'manage-team'}
-                        component={<Link href="/admin/team" />}
+                        onClick={handleMenuItemClick}
                     >
-                        Manage Team
+                        Courses Analytics
                     </MenuItem>
-
-                    <div className="px-6 pt-4 pb-2">
+                    
+                    <MenuItem
+                        icon={<ListOrdered size={20} />}
+                        active={activeItem === 'orders-analytics'}
+                        component={<Link href="/admin/orders-analytics" />}
+                        onClick={handleMenuItemClick}
+                    >
+                        Orders Analytics
+                    </MenuItem>
+                    
+                    <MenuItem
+                        icon={<Users2 size={20} />}
+                        active={activeItem === 'users-analytics'}
+                        component={<Link href="/admin/users-analytics" />}
+                        onClick={handleMenuItemClick
                         <p className={`text-xs font-semibold uppercase tracking-wider ${
                             isDark ? 'text-slate-500' : 'text-slate-400'
                         }`}>
@@ -308,6 +340,7 @@ const AdminSidebar = ({ user }: AdminSidebarProps) => {
                         </p>
                     </div>
                     
+        </>
                     <MenuItem
                         icon={<LogOut size={20} />}
                         active={activeItem === 'log-out'}
