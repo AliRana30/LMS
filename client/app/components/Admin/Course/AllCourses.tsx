@@ -126,7 +126,7 @@ const AllCourses = (props: Props) => {
   }
 
   return (
-    <div className={`w-full transition-all duration-300 font-poppins`}>
+    <div className={`w-full transition-all duration-300 font-poppins overflow-x-hidden`}>
       <div className="w-full">
         <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
           theme === 'dark'
@@ -282,7 +282,7 @@ const AllCourses = (props: Props) => {
         <DialogTitle sx={{ color: theme === "dark" ? "#fff" : "#000", fontWeight: 600 }}>
           Confirm Delete
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ maxHeight: '60vh', overflowY: 'auto' }}>
           <p className="text-base" style={{ color: theme === "dark" ? "#cbd5e1" : "#475569" }}>
             Are you sure you want to delete this course? This action cannot be undone.
           </p>

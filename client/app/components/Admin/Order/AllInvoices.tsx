@@ -91,7 +91,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
     }, [data, usersData, coursesData]);
 
     return (
-        <div className={`w-full transition-all duration-300 font-poppins`}>
+        <div className={`w-full transition-all duration-300 font-poppins overflow-x-hidden`}>
             <div className={`${isDashboard ? '' : 'w-full'}`}>
                 <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
                     theme === 'dark'

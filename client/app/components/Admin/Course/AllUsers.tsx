@@ -201,9 +201,9 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   }, [updateSuccess, updateError, deleteSuccess, deleteError, refetch]);
 
   return (
-    <div className={`w-full transition-all duration-300 font-poppins`}>
+    <div className={`w-full transition-all duration-300 font-poppins overflow-x-hidden`}>
       <div className="w-full">
-        <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
+        <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border relative ${
           theme === 'dark'
             ? 'bg-slate-800/90 border-slate-700/50'
             : 'bg-white border-slate-200/50'
@@ -382,7 +382,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <DialogTitle sx={{ color: theme === "dark" ? "#fff" : "#000", fontWeight: 600 }}>
           Add New Member
         </DialogTitle>
-        <DialogContent sx={{ paddingTop: '20px !important' }}>
+        <DialogContent sx={{ paddingTop: '20px !important', maxHeight: '60vh', overflowY: 'auto' }}>
           <TextField
             autoFocus
             fullWidth
@@ -507,7 +507,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <DialogTitle sx={{ color: theme === "dark" ? "#fff" : "#000", fontWeight: 600 }}>
           Update User Role
         </DialogTitle>
-        <DialogContent sx={{ paddingTop: '20px !important' }}>
+        <DialogContent sx={{ paddingTop: '20px !important', maxHeight: '60vh', overflowY: 'auto' }}>
           <FormControl fullWidth>
             <InputLabel
               id="role-select-label"
@@ -605,7 +605,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <DialogTitle sx={{ color: theme === "dark" ? "#fff" : "#000", fontWeight: 600 }}>
           Confirm Delete
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ maxHeight: '60vh', overflowY: 'auto' }}>
           <p className="text-base" style={{ color: theme === "dark" ? "#cbd5e1" : "#475569" }}>
             Are you sure you want to delete this user? This action cannot be undone.
           </p>

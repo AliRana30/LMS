@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to LMS</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .header {
+        background: linear-gradient(135deg, #2563eb, #1e40af);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin: 0;
+      }
+
+      .content {
+        padding: 30px 40px;
+        color: #333;
+        line-height: 1.7;
+      }
+
+      .content h2 {
+        font-size: 22px;
+        color: #1e40af;
+      }
+
+      .code-box {
+        background: #f9fafb;
+        border: 2px dashed #2563eb;
+        text-align: center;
+        font-size: 24px;
+        letter-spacing: 4px;
+        margin: 25px 0;
+        padding: 15px 0;
+        color: #2563eb;
+        border-radius: 10px;
+      }
+
+      .footer {
+        background: #f3f4f6;
+        text-align: center;
+        font-size: 14px;
+        color: #6b7280;
+        padding: 15px;
+      }
+
+      .footer a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Welcome to CampusCore</h1>
+      </div>
+
+      <div class="content">
+        <h2>Hello <%= user.name %> 👋</h2>
+        <p>Thank you for joining <strong>CampusCore</strong> — your journey of learning starts here!</p>
+        <p>To activate your account, please use the code below. This code will expire in <b>10 minutes</b>.</p>
+
+        <div class="code-box">
+          <%= activationCode %>
+        </div>
+
+        <p>Once activated, you’ll have access to all your courses, materials, and progress tracking.</p>
+        <p>Let’s start learning and growing together 🚀</p>
+      </div>
+
+      <div class="footer">
+        <p>Need help? Contact our support at <a href="mailto:support@lms.com">support@CampusCore.com</a></p>
+        <p>© <%= new Date().getFullYear() %> CampusCore — All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>

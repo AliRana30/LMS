@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only server.ts",
     "start": "node build/server.js",
-    "build": "npm install && tsc" 
+    "build": "npm install && tsc && node copy-files.js",
+    "copy-files": "node copy-files.js"
   },
   "author": "Ali Mahmood",
   "license": "ISC",

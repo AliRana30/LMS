@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 50px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 60px 50px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.95);
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 50px 50px 60px 50px;
+        }
+
+        .greeting {
+            font-size: 17px;
+            color: #1f2937;
+            line-height: 1.7;
+            margin-bottom: 45px;
+        }
+
+        .order-info {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 45px;
+        }
+
+        .order-info-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 28px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 22px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            text-align: right;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 45px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 28px;
+        }
+
+        .course-box {
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 32px;
+            margin-bottom: 35px;
+        }
+
+        .course-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 28px;
+            line-height: 1.4;
+        }
+
+        .course-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .course-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .course-row:first-child {
+            padding-top: 0;
+        }
+
+        .row-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .row-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .pricing-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 32px 35px;
+            margin-bottom: 35px;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+        }
+
+        .pricing-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .pricing-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 0 0;
+            margin-top: 18px;
+            border-top: 2px solid #d1d5db;
+        }
+
+        .total-label {
+            font-size: 19px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .total-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #6366f1;
+        }
+
+        .success-banner {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 22px 24px;
+            margin-bottom: 35px;
+        }
+
+        .success-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .success-icon {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .success-text {
+            font-size: 15px;
+            color: #065f46;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: #f9fafb;
+            padding: 45px 50px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 640px) {
+            .content {
+                padding: 40px 30px;
+            }
+
+            .header {
+                padding: 50px 30px;
+            }
+
+            .footer {
+                padding: 40px 30px;
+            }
+
+            .order-info {
+                padding: 28px 24px;
+            }
+
+            .course-box {
+                padding: 28px 24px;
+            }
+
+            .pricing-box {
+                padding: 28px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Confirmed</h1>
+            <p>Thank you for your purchase</p>
+        </div>
+
+        <div class="content">
+            <p class="greeting">
+                Hello,<br><br>
+                Your order has been successfully confirmed. Your course is now available and ready for you to start learning.
+            </p>
+
+            <div class="order-info">
+                <h2 class="order-info-title">Order Information</h2>
+                
+                <div class="info-row">
+                    <span class="info-label">Order ID</span>
+                    <span class="info-value">#<%= order._id %></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Date</span>
+                    <span class="info-value"><%= order.date %></span>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <h2 class="section-title">Course Details</h2>
+
+            <div class="course-box">
+                <div class="course-title"><%= order.name %></div>
+
+                <div class="course-row">
+                    <span class="row-label">Quantity</span>
+                    <span class="row-value">1</span>
+                </div>
+
+                <div class="course-row">
+                    <span class="row-label">Price</span>
+                    <span class="row-value">$<%= order.price %></span>
+                </div>
+            </div>
+
+            <div class="pricing-box">
+                <div class="pricing-row">
+                    <span class="pricing-label">Subtotal</span>
+                    <span class="pricing-value">$<%= order.price %></span>
+                </div>
+
+                <div class="total-row">
+                    <span class="total-label">Total</span>
+                    <span class="total-value">$<%= order.price %></span>
+                </div>
+            </div>
+
+            <div class="success-banner">
+                <div class="success-content">
+                    <span class="success-icon">✓</span>
+                    <p class="success-text">Your course is now available in your dashboard. You can start learning immediately at your own pace.</p>
+                </div>
+            </div>
+
+            <p style="font-size: 15px; color: #6b7280; text-align: center; line-height: 1.7;">
+                If you have any questions or need assistance, please don't hesitate to contact our support team.
+            </p>
+        </div>
+
+        <div class="footer">
+            <div class="footer-brand">CampusCore</div>
+            <p class="footer-text">
+                © <%= new Date().getFullYear() %> CampusCore. All rights reserved.<br>
+                Empowering learning, one course at a time.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
