@@ -201,14 +201,14 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                                     >
                                         Enter to Course
                                     </Link>
-                                ) : user?.role === "user" ? (
+                                ) : user?.role !== "admin" ? (
                                     <div
                                         onClick={handleOrder}
                                         className="w-full py-2 bg-[#37a39a] text-white text-center rounded-full font-bold text-lg hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform cursor-pointer"
                                     >
                                         Buy Now {data.price}$
                                     </div>
-                                ) : ""}
+                                ) : null}
                             </div>
 
                             {/* Features */}
