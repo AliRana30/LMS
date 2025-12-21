@@ -43,8 +43,11 @@ export const registerUser = catchAsyncErrors(
     try {
       const { name, email, password, avatar } = req.body as IRegistrationBody;
 
+      console.log("Registration attempt for:", email);
+
       const userExists = await User.findOne({ email });
       if (userExists) {
+        console.log("User already exists:", email);
         return next(new ErrorHandler("User Already Exists", 409));
       }
 
@@ -60,6 +63,8 @@ export const registerUser = catchAsyncErrors(
 
       const data = { user: { name: user.name }, activationCode };
 
+      console.log("Attempting to send activation email to:", user.email);
+
       try {
         await sendMail({
           email: user.email,
@@ -68,15 +73,21 @@ export const registerUser = catchAsyncErrors(
           data,
         });
 
+        console.log("Activation email sent successfully to:", user.email);
+
         res.status(201).json({
           success: true,
           message: `Activation code sent to ${user.email}`,
           activationToken: activationToken.token,
         });
       } catch (error: any) {
+        console.error("Email sending error:", error);
+        console.error("Error details:", error.message, error.stack);
         return next(new ErrorHandler(error.message, 500));
       }
     } catch (error: any) {
+      console.error("Registration error:", error);
+      console.error("Error details:", error.message, error.stack);
       return next(new ErrorHandler(error.message, 400));
     }
   }

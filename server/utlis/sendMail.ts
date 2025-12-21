@@ -10,6 +10,17 @@ interface EmailOptions {
 }
 
 export const sendMail = async (options: EmailOptions): Promise<void> => {
+  // Validate SMTP configuration
+  if (!process.env.SMTP_HOST || !process.env.SMTP_PORT || !process.env.SMTP_MAIL || !process.env.SMTP_PASSWORD) {
+    console.error("SMTP configuration missing:", {
+      host: !!process.env.SMTP_HOST,
+      port: !!process.env.SMTP_PORT,
+      mail: !!process.env.SMTP_MAIL,
+      password: !!process.env.SMTP_PASSWORD
+    });
+    throw new Error("SMTP configuration is incomplete. Please check environment variables.");
+  }
+
   const transporter: Transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT as unknown as number, 
@@ -24,6 +35,8 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
 
   //  Template path
   const templatePath = path.join(__dirname, "../mails", template);
+
+  console.log("Attempting to render template from:", templatePath);
 
   const html = await ejs.renderFile(templatePath, data);
 
