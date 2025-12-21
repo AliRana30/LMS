@@ -27,7 +27,7 @@ const authOptions: AuthOptions = {
             }
         })
     ],
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET || process.env.SECRET,
     callbacks: {
         async signIn({ user, account, profile }) {
             return true
