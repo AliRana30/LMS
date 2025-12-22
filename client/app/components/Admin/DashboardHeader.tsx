@@ -172,7 +172,7 @@ const DashboardHeader = (props: Props) => {
           </div>
 
           {openNotifications && (
-            <div className={`absolute top-12 right-0 w-[350px] rounded-xl shadow-2xl border z-50 overflow-hidden transition-all duration-300 ${
+            <div className={`absolute top-12 -right-2 sm:right-0 w-[90vw] sm:w-[350px] max-w-[350px] rounded-xl shadow-2xl border z-50 overflow-hidden transition-all duration-300 ${
               theme === 'dark' 
                 ? 'bg-slate-800 border-slate-700' 
                 : 'bg-white border-gray-200'

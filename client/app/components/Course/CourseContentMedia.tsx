@@ -206,10 +206,10 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
     }
 
     return (
-        <div className="w-full min-h-screen font-poppins mt-20">
-            <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8">
+        <div className="w-full min-h-screen font-poppins mt-4 sm:mt-8 md:mt-12 lg:mt-20">
+            <div className="w-full mx-auto py-4 sm:py-6 md:py-8">
                 {/* Video Player */}
-                <div className="mb-8">
+                <div className="mb-4 sm:mb-6 md:mb-8">
                     <CoursePlayer
                         title={data[activeVideo]?.title}
                         videoUrl={data[activeVideo]?.videoUrl}
@@ -217,11 +217,11 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                     <button
                         onClick={() => activeVideo > 0 && setActiveVideo(activeVideo - 1)}
                         disabled={activeVideo === 0}
-                        className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center ${activeVideo === 0
+                        className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center text-sm sm:text-base ${activeVideo === 0
                                 ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
                                 : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
                             }`}
@@ -233,7 +233,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                     <button
                         onClick={() => activeVideo < data.length - 1 && setActiveVideo(activeVideo + 1)}
                         disabled={activeVideo === data.length - 1}
-                        className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center ${activeVideo === data.length - 1
+                        className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center text-sm sm:text-base ${activeVideo === data.length - 1
                                 ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
                                 : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
                             }`}
@@ -244,20 +244,20 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                 </div>
 
                 {/* Video Title */}
-                <div className="mb-8">
-                    <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                <div className="mb-4 sm:mb-6 md:mb-8">
+                    <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                         }`}>
                         {data[activeVideo]?.title}
                     </h1>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-300 dark:border-gray-700">
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6 md:mb-8 border-b border-gray-300 dark:border-gray-700">
                     {["Overview", "Resources", "Q&A", "Reviews"].map((item, index) => (
                         <button
                             key={index}
                             onClick={() => setActiveBar(index)}
-                            className={`px-6 py-3 font-semibold transition-all duration-300 border-b-2 ${activeBar === index
+                            className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold transition-all duration-300 border-b-2 ${activeBar === index
                                     ? 'border-[#37a39a] text-[#37a39a]'
                                     : theme === 'dark'
                                         ? 'border-transparent text-gray-400 hover:text-gray-200'
@@ -270,11 +270,11 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                 </div>
 
                 {/* Tab Content */}
-                <div className="mt-6">
+                <div className="mt-4 sm:mt-6">
                     {/* Overview Tab */}
                     {activeBar === 0 && (
                         <div>
-                            <p className={`text-base md:text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                            <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                                 }`}>
                                 {data[activeVideo]?.description}
                             </p>

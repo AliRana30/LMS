@@ -74,7 +74,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
     }
 
     return (
-        <div className="w-full font-poppins mt-16">
+        <div className="w-full font-poppins mt-4 sm:mt-8 md:mt-12 lg:mt-16">
             {videoSections.map((section: string, sectionIndex: number) => {
                 const isSectionVisible = visibleSection.has(section)
 

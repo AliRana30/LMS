@@ -27,7 +27,7 @@ const CoursePlayer : FC<Props> = ({videoUrl, title}) => {
               src={`https://player.vdocipher.com/v2/?otp=${videoData.otp}&playbackInfo=${videoData.playbackInfo}&player=u9hLEOxkgpOzBfzl`}   
                 style={{border: 'none'}}
                 width="100%"
-                height="500px"
+                className="h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] xl:h-[450px]"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
                 title={title}

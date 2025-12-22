@@ -35,26 +35,28 @@ const CourseContent: FC<Props> = ({ id, user }) => {
         keywords={data[activeVideo]?.tags || []}
       />
 
-      <div className="w-full grid grid-cols-1 lg:grid-cols-10 gap-8">
-        {/* Main Content - Video Player */}
-        <div className="lg:col-span-7">
-          <CourseContentMedia
-            id={id}
-            activeVideo={activeVideo}
-            setActiveVideo={setActiveVideo}
-            data={data}
-            courseData={courseData}
-            user={user}
-            refetch={refetch}
-          />
-        </div>
+      <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto px-2 sm:px-4">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-10 gap-4 md:gap-6 lg:gap-8">
+          {/* Main Content - Video Player */}
+          <div className="lg:col-span-7">
+            <CourseContentMedia
+              id={id}
+              activeVideo={activeVideo}
+              setActiveVideo={setActiveVideo}
+              data={data}
+              courseData={courseData}
+              user={user}
+              refetch={refetch}
+            />
+          </div>
 
-        <div className="lg:col-span-3">
-          <CourseContentList 
-            setActiveVideo={setActiveVideo} 
-            activeVideo={activeVideo} 
-            data={data} 
-          />
+          <div className="lg:col-span-3">
+            <CourseContentList 
+              setActiveVideo={setActiveVideo} 
+              activeVideo={activeVideo} 
+              data={data} 
+            />
+          </div>
         </div>
       </div>
     </div>
