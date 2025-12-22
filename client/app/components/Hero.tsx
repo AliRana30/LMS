@@ -69,6 +69,7 @@ const Hero = () => {
                     fill
                     className='object-cover'
                     priority
+                    unoptimized
                     style={{ mixBlendMode: theme === 'dark' ? 'lighten' : 'normal' }}
                   />
                 </div>

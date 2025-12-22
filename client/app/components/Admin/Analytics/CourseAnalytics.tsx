@@ -31,36 +31,44 @@ const CourseAnalytics = (props: Props) => {
             ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
             : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
           }`}>
-          <div className={`px-6 py-5 border-b ${theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
+          <div className={`px-4 sm:px-6 py-4 sm:py-5 border-b ${theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
             <div className="flex items-center justify-between">
               <div>
-                <h2 className={`text-xl sm:text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                <h2 className={`text-lg sm:text-xl lg:text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                   Courses Analytics
                 </h2>
-                <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                <p className={`mt-1 text-xs sm:text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
                   Last 12 months analytics data
                 </p>
               </div>
-              <BarChart3 className={`w-8 h-8 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
+              <BarChart3 className={`w-6 h-6 sm:w-8 sm:h-8 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
             </div>
           </div>
 
-          <div className="p-6 lg:p-8">
-            <div className={`rounded-xl p-6 transition-all duration-300 border ${theme === 'dark'
+          <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+            <div className={`rounded-xl p-3 sm:p-4 md:p-6 transition-all duration-300 border overflow-x-auto ${theme === 'dark'
                 ? 'bg-slate-700/30 border-slate-600'
                 : 'bg-slate-50 border-slate-200'
               }`}>
-              <ResponsiveContainer width="100%" height={500}>
-                <BarChart width={150} height={300} data={analyticsData}>
-                  <XAxis dataKey="name">
+              <div style={{ width: '100%', height: '300px', minHeight: '300px' }} className="sm:h-[350px] md:h-[400px] lg:h-[500px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={analyticsData} margin={{ top: 20, right: 10, left: -20, bottom: 60 }}>
+                  <XAxis 
+                    dataKey="name" 
+                    tick={{ fontSize: 12 }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={60}
+                  >
                     <Label offset={0} position="insideBottom" />
                   </XAxis>
                   <YAxis domain={[minValue, 'auto']} />
                   <Bar dataKey="uv" fill={theme === 'dark' ? '#3b82f6' : '#2563eb'}>
                     <LabelList dataKey="uv" position="top" />
                   </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </div>

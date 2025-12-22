@@ -45,9 +45,9 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                 : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
             }`}>
             <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8 md:py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-2 space-y-8 mt-14">
-                        <h1 className={`text-1xl md:text-2xl lg:text-3xl font-bold leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+                    <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8 mt-0 md:mt-8 lg:mt-14">
+                        <h1 className={`text-xl md:text-2xl lg:text-3xl font-bold leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                             {data.name}
                         </h1>
@@ -64,12 +64,12 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                         </div>
 
                         {/* What You'll Learn */}
-                        <div className="mt-8">
-                            <h1 className={`text-1xl md:text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <div className="mt-4 md:mt-6 lg:mt-8">
+                            <h1 className={`text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 lg:mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                 }`}>
                                 What you will learn from this course?
                             </h1>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3 lg:gap-4">
                                 {data?.benefits?.map((benefit: any, index: number) => (
                                     <div key={index} className="flex items-start gap-3">
                                         <IoMdCheckmarkCircleOutline className="text-[#37a39a] text-xl flex-shrink-0 mt-1" />
@@ -82,12 +82,12 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                         </div>
 
                         {/* Prerequisites */}
-                        <div className="mt-8">
-                            <h1 className={`text-1xl md:text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <div className="mt-4 md:mt-6 lg:mt-8">
+                            <h1 className={`text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 lg:mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                 }`}>
                                 What are the prerequisites for starting this course?
                             </h1>
-                            <div className="space-y-3">
+                            <div className="space-y-2 md:space-y-3">
                                 {data?.prerequisites?.map((prerequisite: any, index: number) => (
                                     <div key={index} className="flex items-start gap-3">
                                         <IoMdCheckmarkCircleOutline className="text-[#37a39a] text-xl flex-shrink-0 mt-1" />
@@ -100,8 +100,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                         </div>
 
                         {/* Course Overview */}
-                        <div className="mt-8">
-                            <h1 className={`text-1xl md:text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <div className="mt-4 md:mt-6 lg:mt-8">
+                            <h1 className={`text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 lg:mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                 }`}>
                                 Course Overview
                             </h1>
@@ -109,8 +109,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                         </div>
 
                         {/* Course Description */}
-                        <div className="mt-8">
-                            <h1 className={`text-1xl md:text-2xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <div className="mt-4 md:mt-6 lg:mt-8">
+                            <h1 className={`text-lg md:text-xl lg:text-2xl font-bold mb-3 md:mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                 }`}>
                                 Course Details
                             </h1>
@@ -121,8 +121,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                         </div>
 
                         {/* Reviews Section */}
-                        <div className="mt-8">
-                            <div className="flex items-center gap-3 mb-6">
+                        <div className="mt-4 md:mt-6 lg:mt-8">
+                            <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-3 md:mb-4 lg:mb-6">
                                 <Ratings rating={data.ratings} />
                                 <h5 className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                     {Number.isInteger(data?.ratings) ? data?.ratings : data?.ratings.toFixed(1)} out of 5 Course Rating • {data?.reviews?.length} Reviews
@@ -164,16 +164,16 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
 
                     {/* Right Column - Video & Purchase */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-8">
+                        <div className="lg:sticky lg:top-8">
                             {/* Video Player */}
-                            <div className="mb-6">
+                            <div className="mb-4 md:mb-5 lg:mb-6">
                                 <CoursePlayer videoUrl={data.demoUrl} title={data?.title} />
                             </div>
 
                             {/* Price */}
-                            <div className="mb-6">
-                                <div className="flex items-baseline gap-3 mb-2">
-                                    <h1 className={`text-2xl md:text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            <div className="mb-4 md:mb-5 lg:mb-6">
+                                <div className="flex items-baseline gap-2 md:gap-3 mb-2">
+                                    <h1 className={`text-xl md:text-2xl lg:text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                                         }`}>
                                         {data.price == 0 ? "Free" : data?.price + "$"}
                                     </h1>
@@ -192,18 +192,18 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                             </div>
 
                             {/* CTA Button */}
-                            <div className="mb-6">
+                            <div className="mb-4 md:mb-5 lg:mb-6">
                                 {isPurchased ? (
                                     <Link
                                         href={`/course-access/${data._id}`}
-                                        className="block w-full py-3 bg-[#37a39a] text-white text-center rounded-full font-bold text-lg hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform "
+                                        className="block w-full py-2 md:py-3 bg-[#37a39a] text-white text-center rounded-full font-bold text-base md:text-lg hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform "
                                     >
                                         Enter to Course
                                     </Link>
                                 ) : user?.role !== "admin" ? (
                                     <div
                                         onClick={handleOrder}
-                                        className="w-full py-2 bg-[#37a39a] text-white text-center rounded-full font-bold text-lg hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform cursor-pointer"
+                                        className="w-full py-2 md:py-3 bg-[#37a39a] text-white text-center rounded-full font-bold text-base md:text-lg hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform cursor-pointer"
                                     >
                                         Buy Now {data.price}$
                                     </div>
@@ -211,7 +211,7 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                             </div>
 
                             {/* Features */}
-                            <div className="space-y-3">
+                            <div className="space-y-2 md:space-y-3">
                                 <p className={`flex items-center gap-3 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                                     }`}>
                                     <IoMdCheckmarkCircleOutline className="text-[#37a39a] text-lg flex-shrink-0" />

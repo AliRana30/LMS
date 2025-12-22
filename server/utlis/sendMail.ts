@@ -33,10 +33,11 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
 
   const { email, subject, template, data } = options;
 
-  //  Template path
-  const templatePath = path.join(__dirname, "../mails", template);
+  //  Template path - use absolute path for better reliability
+  const templatePath = path.join(process.cwd(), "mails", template);
 
   console.log("Attempting to render template from:", templatePath);
+  console.log("Current working directory:", process.cwd());
 
   const html = await ejs.renderFile(templatePath, data);
 
