@@ -29,7 +29,8 @@ const CoursesContent = (props: Props) => {
         }
         if (category !== "All") {
             const filteredCourses = data?.courses?.filter((course: any) => 
-                course.categories?.toLowerCase() === category?.toLowerCase()
+                course.categories?.toLowerCase() === category?.toLowerCase() ||
+                course.category?.toLowerCase() === category?.toLowerCase()
             )
             setCourses(filteredCourses)
         }
@@ -73,7 +74,7 @@ const CoursesContent = (props: Props) => {
                 </div>
 
                 {/* Category Filter */}
-                <div className="mb-8">
+                <div className="mb-8 mt-10">
                     <div className="flex flex-wrap gap-3">
                         <button
                             onClick={() => setCategory("All")}

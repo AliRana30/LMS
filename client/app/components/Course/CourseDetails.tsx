@@ -46,8 +46,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
             }`}>
             <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8 md:py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                    <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8 mt-8 sm:mt-10 md:mt-12 lg:mt-14">
-                        <h1 className={`text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight break-words ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8 mt-12 sm:mt-20 md:mt-16 lg:mt-18">
+                        <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-tight break-words ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                             {data.name}
                         </h1>
@@ -118,47 +118,6 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                                 }`}>
                                 {data.description}
                             </p>
-                        </div>
-
-                        {/* Reviews Section */}
-                        <div className="mt-4 md:mt-6 lg:mt-8">
-                            <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-3 md:mb-4 lg:mb-6">
-                                <Ratings rating={data.ratings} />
-                                <h5 className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                                    {Number.isInteger(data?.ratings) ? data?.ratings : data?.ratings.toFixed(1)} out of 5 Course Rating • {data?.reviews?.length} Reviews
-                                </h5>
-                            </div>
-
-                            <div className="space-y-6">
-                                {data?.reviews && [...data.reviews].reverse().map((review: any, index: number) => (
-                                    <div key={index} className={`pb-6 border-b ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-                                        }`}>
-                                        
-                                        <div className="mb-3">
-                                            <Image
-                                            src={review.user?.avatar?.url || "/noimage.png"}
-                                            width={30}
-                                            height={30}
-                                            alt='User Avatar'
-                                            className="rounded-full"
-                                        />
-                                            <h5 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-                                                }`}>
-                                                {review.user.name}
-                                            </h5>
-                                            <Ratings rating={review.rating} />
-                                        </div>
-                                        <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                                            }`}>
-                                            {review.comment}
-                                        </p>
-                                        <small className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                                            }`}>
-                                            {format(review.createdAt)}
-                                        </small>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
                     </div>
 

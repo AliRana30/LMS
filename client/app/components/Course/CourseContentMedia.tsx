@@ -245,10 +245,16 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
 
                 {/* Video Title */}
                 <div className="mb-4 sm:mb-6 md:mb-8">
-                    <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                         }`}>
                         {data[activeVideo]?.title}
                     </h1>
+                    {data[activeVideo]?.description && (
+                        <p className={`text-sm sm:text-base leading-relaxed ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                            }`}>
+                            {data[activeVideo]?.description}
+                        </p>
+                    )}
                 </div>
 
                 {/* Tabs */}
@@ -273,11 +279,10 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                 <div className="mt-4 sm:mt-6">
                     {/* Overview Tab */}
                     {activeBar === 0 && (
-                        <div>
-                            <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                                }`}>
-                                {data[activeVideo]?.description}
-                            </p>
+                        <div className={`text-sm sm:text-base leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                            }`}>
+                            {/* Content displayed above in video title section */}
+                            <p className="italic">Video content and description displayed above</p>
                         </div>
                     )}
 

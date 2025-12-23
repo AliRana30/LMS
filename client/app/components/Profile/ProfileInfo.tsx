@@ -54,9 +54,7 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
     useEffect(() => {
         if (isSuccess) {
             setLoadUser(true);
-            refetch?.().then(() => {
-                setLoadUser(false);
-            });
+            refetch()
             toast.success("Avatar updated successfully")
         }
         if (error) {
