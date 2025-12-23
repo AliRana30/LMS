@@ -137,7 +137,6 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                       className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded-full cursor-pointer border-2 border-[#37a39a] hover:border-[#2d8f82] transition-all duration-300'
                       style={{ objectFit: 'cover' }}
                       unoptimized
-                      key={user.avatar.url}
                     />
                   </Link>
                 ) : (
@@ -210,7 +209,6 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                       src={user.avatar.url}
                       alt={user.name || 'User avatar'}
                       unoptimized
-                      key={user.avatar.url}
                       width={60}
                       height={60}
                       className='rounded-full border-2 border-[#37a39a]'

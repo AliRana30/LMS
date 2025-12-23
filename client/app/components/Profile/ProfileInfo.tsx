@@ -17,7 +17,7 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
     const { theme } = useTheme();
     const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
     const [editProfile, { isSuccess: success, error: editError, isLoading: editLoading }] = useEditProfileMutation();
-    const { } = useLoadUserQuery(undefined, { skip: !loadUser });
+    const { refetch } = useLoadUserQuery(undefined, { skip: !loadUser });
 
     const avatarUrl = avatar || user?.avatar?.url || user?.image || null;
     const isDark = theme === 'dark';
@@ -54,6 +54,9 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
     useEffect(() => {
         if (isSuccess) {
             setLoadUser(true);
+            refetch?.().then(() => {
+                setLoadUser(false);
+            });
             toast.success("Avatar updated successfully")
         }
         if (error) {
@@ -62,17 +65,20 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
                 console.error('Error data:', error.data);
             }
         }
-    }, [isSuccess, error]);
+    }, [isSuccess, error, refetch]);
 
     useEffect(() => {
         if (success) {
             setLoadUser(true);
+            refetch?.().then(() => {
+                setLoadUser(false);
+            });
             toast.success("User updated successfully")
         }
         if (editError) {
             console.error(editError);
         }
-    }, [success, editError]);
+    }, [success, editError, refetch]);
 
     return (
         <div className={`rounded-xl shadow-2xl p-6 md:p-8 transition-colors duration-300 ${isDark
@@ -100,7 +106,6 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
                                         className="object-cover"
                                         priority
                                         unoptimized
-                                        key={avatarUrl}
                                     />
                                 </div>
                             ) : (
