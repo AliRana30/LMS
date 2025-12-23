@@ -99,6 +99,8 @@ const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
                                         fill
                                         className="object-cover"
                                         priority
+                                        unoptimized
+                                        key={avatarUrl}
                                     />
                                 </div>
                             ) : (

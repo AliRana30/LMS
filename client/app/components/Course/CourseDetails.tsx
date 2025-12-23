@@ -46,8 +46,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
             }`}>
             <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8 md:py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-                    <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8 mt-0 md:mt-8 lg:mt-14">
-                        <h1 className={`text-xl md:text-2xl lg:text-3xl font-bold leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    <div className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8 mt-4 sm:mt-6 md:mt-8 lg:mt-14">
+                        <h1 className={`text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight break-words ${theme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                             {data.name}
                         </h1>
