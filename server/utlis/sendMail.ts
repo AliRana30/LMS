@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import path from "path";
+import fs from "fs";
 import ejs from "ejs";
 
 interface EmailOptions {
@@ -38,8 +39,25 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
   //  We go up one level (..) and then into mails folder
   const templatePath = path.join(__dirname, "..", "mails", template);
 
-  console.log("Attempting to render template from:", templatePath);
-  console.log("Current directory (__dirname):", __dirname);
+  console.log("=== Email Debug Info ===");
+  console.log("__dirname:", __dirname);
+  console.log("Template path:", templatePath);
+  console.log("Template exists:", fs.existsSync(templatePath));
+
+  // List files in mails directory to help debug
+  const mailsDir = path.join(__dirname, "..", "mails");
+  console.log("Mails directory:", mailsDir);
+  console.log("Mails dir exists:", fs.existsSync(mailsDir));
+
+  if (fs.existsSync(mailsDir)) {
+    console.log("Files in mails dir:", fs.readdirSync(mailsDir));
+  }
+
+  // Check if template exists
+  if (!fs.existsSync(templatePath)) {
+    console.error(`Template file not found: ${templatePath}`);
+    throw new Error(`Email template not found: ${template}. Path: ${templatePath}`);
+  }
 
   const html = await ejs.renderFile(templatePath, data);
 
@@ -49,4 +67,6 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
     subject,
     html,
   });
+
+  console.log("Email sent successfully to:", email);
 };
