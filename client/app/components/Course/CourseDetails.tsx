@@ -16,11 +16,11 @@ type Props = {
     data: any
     stripePromise?: any
     clientSecret?: string
-    setRoute : any
-    setOpen : any
+    setRoute: any
+    setOpen: any
 }
 
-const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute, setOpen : openAuthModal}) => {
+const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute, setOpen: openAuthModal }) => {
     const { theme } = useTheme()
     const { user } = useSelector((state: any) => state.auth)
     const [open, setOpen] = useState(false);
@@ -29,10 +29,10 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
 
     const handleOrder = (e: any) => {
         console.log("Buy Now clicked - User:", user ? user.name : "Not logged in");
-        if(user){
+        if (user) {
             setOpen(true);
         }
-        else{
+        else {
             console.log("Opening login modal");
             openAuthModal(true)
             setRoute("Login")
@@ -41,8 +41,8 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
 
     return (
         <div className={`w-full min-h-screen transition-colors duration-300 font-poppins ${theme === 'dark'
-                ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
-                : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+            ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+            : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
             }`}>
             <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8 md:py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
@@ -214,9 +214,15 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                                     <CheckoutForm setOpen={setOpen} data={data} user={user} />
                                 </Elements>
                             ) : (
-                                <p className="text-center text-gray-600 dark:text-gray-400">
-                                    Loading payment form...
-                                </p>
+                                <div className="text-center py-8">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                        Initializing payment...
+                                    </p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                                        Please wait while we set up your secure payment.
+                                    </p>
+                                </div>
                             )}
                         </div>
                     </div>

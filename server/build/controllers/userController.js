@@ -7,9 +7,7 @@ exports.deleteUser = exports.updateUserRole = exports.getAllUsersAdmin = exports
 const errorHandler_1 = __importDefault(require("../utlis/errorHandler"));
 const User_1 = require("../models/User");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const ejs_1 = __importDefault(require("ejs"));
 const catchAsyncErrors_1 = require("../middlewares/catchAsyncErrors");
-const path_1 = __importDefault(require("path"));
 const sendMail_1 = require("../utlis/sendMail");
 const jwt_1 = require("../utlis/jwt");
 const redis_1 = __importDefault(require("../utlis/redis"));
@@ -19,8 +17,10 @@ const userService_1 = require("../services/userService");
 exports.registerUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, next) => {
     try {
         const { name, email, password, avatar } = req.body;
+        console.log("Registration attempt for:", email);
         const userExists = await User_1.User.findOne({ email });
         if (userExists) {
+            console.log("User already exists:", email);
             return next(new errorHandler_1.default("User Already Exists", 409));
         }
         const user = {
@@ -32,8 +32,7 @@ exports.registerUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res,
         const activationToken = (0, exports.createActivationToken)(user);
         const activationCode = activationToken.activationCode;
         const data = { user: { name: user.name }, activationCode };
-        const htmlPath = path_1.default.resolve(__dirname, "../mails/activation-mail.ejs");
-        await ejs_1.default.renderFile(htmlPath, data);
+        console.log("Attempting to send activation email to:", user.email);
         try {
             await (0, sendMail_1.sendMail)({
                 email: user.email,
@@ -41,6 +40,7 @@ exports.registerUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res,
                 template: "activation-mail.ejs",
                 data,
             });
+            console.log("Activation email sent successfully to:", user.email);
             res.status(201).json({
                 success: true,
                 message: `Activation code sent to ${user.email}`,
@@ -48,10 +48,14 @@ exports.registerUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res,
             });
         }
         catch (error) {
+            console.error("Email sending error:", error);
+            console.error("Error details:", error.message, error.stack);
             return next(new errorHandler_1.default(error.message, 500));
         }
     }
     catch (error) {
+        console.error("Registration error:", error);
+        console.error("Error details:", error.message, error.stack);
         return next(new errorHandler_1.default(error.message, 400));
     }
 });
@@ -131,17 +135,21 @@ exports.loginUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, ne
 exports.logOutUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, next) => {
     try {
         const userId = req.user?._id;
+        const isProduction = process.env.NODE_ENV === 'production';
+        // Cookie options must match the ones used when setting (especially sameSite)
         res.cookie("access_token", "", {
             maxAge: 1,
             httpOnly: true,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production'
+            sameSite: isProduction ? 'none' : 'lax',
+            secure: isProduction,
+            path: "/"
         });
         res.cookie("refresh_token", "", {
             maxAge: 1,
             httpOnly: true,
-            sameSite: 'lax',
-            secure: process.env.NODE_ENV === 'production'
+            sameSite: isProduction ? 'none' : 'lax',
+            secure: isProduction,
+            path: "/"
         });
         // Delete from Redis
         if (userId) {
@@ -181,9 +189,12 @@ exports.updateUserPassword = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req
         if (!user) {
             return next(new errorHandler_1.default("User not found", 404));
         }
-        const isPasswordMatched = await user?.comparePassword(oldPassword);
-        if (!isPasswordMatched) {
-            return next(new errorHandler_1.default("Old password is incorrect", 400));
+        // Check if user has a password (social auth users may not have one)
+        if (user.password) {
+            const isPasswordMatched = await user?.comparePassword(oldPassword);
+            if (!isPasswordMatched) {
+                return next(new errorHandler_1.default("Old password is incorrect", 400));
+            }
         }
         user.password = newPassword;
         await user.save();

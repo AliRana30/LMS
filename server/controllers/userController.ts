@@ -105,7 +105,7 @@ export const activateUser = catchAsyncErrors(
 
     // Verify token
     let decoded: { user: IUser; activationCode: string };
-    
+
     try {
       decoded = jwt.verify(
         activation_token,
@@ -113,7 +113,7 @@ export const activateUser = catchAsyncErrors(
       ) as { user: IUser; activationCode: string };
     } catch (error: any) {
       console.error("JWT Verification Error:", error.message);
-      
+
       if (error.name === "TokenExpiredError") {
         return next(new ErrorHandler("Activation token has expired", 400));
       } else if (error.name === "JsonWebTokenError") {
@@ -125,9 +125,9 @@ export const activateUser = catchAsyncErrors(
 
     // Check if the codes match (convert both to string for comparison)
     if (decoded.activationCode !== activation_code.toString()) {
-      console.log("Code mismatch:", { 
-        expected: decoded.activationCode, 
-        received: activation_code 
+      console.log("Code mismatch:", {
+        expected: decoded.activationCode,
+        received: activation_code
       });
       return next(new ErrorHandler("Invalid activation code", 400));
     }
@@ -189,26 +189,30 @@ export const loginUser = catchAsyncErrors(async (req: Request, res: Response, ne
 export const logOutUser = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.user?._id
-    
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    // Cookie options must match the ones used when setting (especially sameSite)
     res.cookie("access_token", "", {
       maxAge: 1,
       httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production'
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
+      path: "/"
     });
-    
+
     res.cookie("refresh_token", "", {
       maxAge: 1,
       httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production'
+      sameSite: isProduction ? 'none' : 'lax',
+      secure: isProduction,
+      path: "/"
     });
 
     // Delete from Redis
     if (userId) {
       await redis.del(userId as string);
     }
-    
+
     res.status(200).json({
       success: true,
       message: "Logged out successfully"
@@ -242,11 +246,11 @@ export const updateUserPassword = catchAsyncErrors(
         return next(new ErrorHandler("User not authenticated", 401));
       }
 
-      if(newPassword == oldPassword){
+      if (newPassword == oldPassword) {
         return next(new ErrorHandler("New password must be different from old password", 400));
       }
 
-      if(!oldPassword || !newPassword){
+      if (!oldPassword || !newPassword) {
         return next(new ErrorHandler("Please provide old and new password", 400));
       }
 
@@ -265,7 +269,7 @@ export const updateUserPassword = catchAsyncErrors(
 
       user.password = newPassword;
       await user.save();
-      await redis.set(userId as string , JSON.stringify(user) as any)
+      await redis.set(userId as string, JSON.stringify(user) as any)
 
 
       res.status(200).json({
@@ -280,102 +284,102 @@ export const updateUserPassword = catchAsyncErrors(
 );
 
 // update user avatar 
-export const updateUserAvatar = catchAsyncErrors(async(req:Request,res:Response,next:NextFunction)=>{
+export const updateUserAvatar = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
   try {
-     const {avatar} = req.body;
-     const userId = req.user?._id;
-     
-     if(!userId){
-        return next(new ErrorHandler("User not authenticated" , 401)) 
-     }
+    const { avatar } = req.body;
+    const userId = req.user?._id;
 
-     const user = await User.findById(userId); 
+    if (!userId) {
+      return next(new ErrorHandler("User not authenticated", 401))
+    }
 
-     if(!user){
-        return next(new ErrorHandler("User not found" , 404))
-     }
+    const user = await User.findById(userId);
 
-     if(avatar && user){
-       // Check if user already has an avatar
-       if(user?.avatar?.public_id){ 
-         await cloudinary.v2.uploader.destroy(user.avatar.public_id)
-       }
-       
-       // Upload new avatar
-       const myCloud = await cloudinary.v2.uploader.upload(avatar,{
-         folder:"avatars",
-         width:150,
-         crop:"scale"
-       })
-       
-       user.avatar = {
-         public_id: myCloud.public_id,
-         url: myCloud.secure_url
-       }
-     }
+    if (!user) {
+      return next(new ErrorHandler("User not found", 404))
+    }
 
-     // Update Redis cache - convert ObjectId to string
-     await redis.set(userId.toString(), JSON.stringify(user)) 
+    if (avatar && user) {
+      // Check if user already has an avatar
+      if (user?.avatar?.public_id) {
+        await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+      }
 
-     await user.save()
+      // Upload new avatar
+      const myCloud = await cloudinary.v2.uploader.upload(avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale"
+      })
+
+      user.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url
+      }
+    }
+
+    // Update Redis cache - convert ObjectId to string
+    await redis.set(userId.toString(), JSON.stringify(user))
+
+    await user.save()
 
 
-     res.status(200).json({
-        success:true,
-        message:"Avatar updated successfully",
-        user
-     })
+    res.status(200).json({
+      success: true,
+      message: "Avatar updated successfully",
+      user
+    })
   }
-  catch(error : any){
-      console.error("Avatar update error:", error); // Add logging
-      return next(new ErrorHandler(error.message , 400))
+  catch (error: any) {
+    console.error("Avatar update error:", error); // Add logging
+    return next(new ErrorHandler(error.message, 400))
   }
 })
 
 // get All Users -- only for admin
 
-export const getAllUsersAdmin =  catchAsyncErrors(async(req:Request,res:Response,next:NextFunction)=>{
-   try {
+export const getAllUsersAdmin = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
+  try {
     getAllUsersService(res)
-   } catch (error : any) {
-      return next(new ErrorHandler(error.message , 400))
-   }
+  } catch (error: any) {
+    return next(new ErrorHandler(error.message, 400))
+  }
 })
 
 // update user role -- only admin
 
-export const updateUserRole =  catchAsyncErrors(async(req:Request,res:Response,next:NextFunction)=>{
+export const updateUserRole = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
   try {
-     const {id , role } = req.body;
-     updateUserRoleService(res,id,role)
-  } catch (error : any) {
-       return next(new ErrorHandler(error.message , 400))
+    const { id, role } = req.body;
+    updateUserRoleService(res, id, role)
+  } catch (error: any) {
+    return next(new ErrorHandler(error.message, 400))
   }
 })
 
 // delete  a user -- only admin
 
-export const deleteUser =  catchAsyncErrors(async(req:Request,res:Response,next:NextFunction)=>{
+export const deleteUser = catchAsyncErrors(async (req: Request, res: Response, next: NextFunction) => {
   try {
-     const {id} = req.params
+    const { id } = req.params
 
-     const user = await User.findById(id)
+    const user = await User.findById(id)
 
-     if(!user){
-       return next(new ErrorHandler("User Not found", 404))
-     }
+    if (!user) {
+      return next(new ErrorHandler("User Not found", 404))
+    }
 
-     await user.deleteOne({id})
+    await user.deleteOne({ id })
 
-     await redis.del(id)
+    await redis.del(id)
 
-      res.status(200).json({
-        success : true,
-        message : "User deleted Succefully",
+    res.status(200).json({
+      success: true,
+      message: "User deleted Succefully",
     })
 
-  } catch (error : any) {
-       return next(new ErrorHandler(error.message ,  404))
-    
+  } catch (error: any) {
+    return next(new ErrorHandler(error.message, 404))
+
   }
 })

@@ -23,7 +23,7 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
 
   const transporter: Transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT as unknown as number, 
+    port: process.env.SMTP_PORT as unknown as number,
     service: process.env.SMTP_SERVICE,
     auth: {
       user: process.env.SMTP_MAIL,
@@ -33,11 +33,13 @@ export const sendMail = async (options: EmailOptions): Promise<void> => {
 
   const { email, subject, template, data } = options;
 
-  //  Template path - use absolute path for better reliability
-  const templatePath = path.join(process.cwd(), "mails", template);
+  //  Template path - use __dirname for production reliability
+  //  __dirname points to the directory of the current file (utlis/ in dev, build/utlis/ in prod)
+  //  We go up one level (..) and then into mails folder
+  const templatePath = path.join(__dirname, "..", "mails", template);
 
   console.log("Attempting to render template from:", templatePath);
-  console.log("Current working directory:", process.cwd());
+  console.log("Current directory (__dirname):", __dirname);
 
   const html = await ejs.renderFile(templatePath, data);
 

@@ -20,6 +20,7 @@ exports.app = (0, express_1.default)();
 // body parser
 exports.app.use(express_1.default.json({ limit: '50mb' }));
 exports.app.use((0, cookie_parser_1.default)());
+console.log("CORS Origin configured:", process.env.ORIGIN);
 exports.app.use((0, cors_1.default)({
     origin: process.env.ORIGIN,
     credentials: true,
