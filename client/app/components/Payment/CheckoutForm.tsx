@@ -14,9 +14,9 @@ const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
-  setOpen: (open: boolean) => void 
+  setOpen: (open: boolean) => void
   data: any
-  user : any
+  user: any
 }
 
 const CheckoutForm = ({ setOpen, data, user }: Props) => {
@@ -26,7 +26,7 @@ const CheckoutForm = ({ setOpen, data, user }: Props) => {
   const [message, setMessage] = useState<string>("")
   const [createOrder, { data: orderData, error }] = useCreateOrderMutation()
   const [loadUser, setLoadUser] = useState(false)
-  const {refetch } = useLoadUserQuery(undefined, { skip: !loadUser })
+  const { refetch } = useLoadUserQuery(undefined, { skip: !loadUser })
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,35 +72,35 @@ const CheckoutForm = ({ setOpen, data, user }: Props) => {
     }
   }
 
-  useEffect(()=>{
-    if(orderData){
-        setLoadUser(true);
-        setMessage("Payment successful! Redirecting...");
+  useEffect(() => {
+    if (orderData) {
+      setLoadUser(true);
+      setMessage("Payment successful! Redirecting...");
 
-        socketId.emit("notification", {
-          title : "New Order",
-          message: `You have new order from ${user?.name} for the course ${orderData?.name}.`,
-          userId: user._id,
-        });
+      socketId.emit("notification", {
+        title: "New Order",
+        message: `You have new order from ${user?.name} for the course ${orderData?.name}.`,
+        userId: user?._id,
+      });
 
-        refetch().then(() => {
-          setTimeout(() => {
-            setOpen(false);
-            redirect(`/course-access/${data._id}`);
-          }, 1500);
-        });
+      refetch().then(() => {
+        setTimeout(() => {
+          setOpen(false);
+          redirect(`/course-access/${data._id}`);
+        }, 1500);
+      });
     }
-    if(error){
-       if("data" in error){
+    if (error) {
+      if ("data" in error) {
         const errMsg = (error.data as any).message;
         toast.error(errMsg);
         setMessage(errMsg);
-       } else {
+      } else {
         toast.error("Failed to create order. Please contact support.");
         setMessage("Failed to create order. Please contact support.");
-       }
-    } 
-  },[orderData, error, data._id, refetch, setOpen]);
+      }
+    }
+  }, [orderData, error, data._id, refetch, setOpen, user]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full">
@@ -110,7 +110,7 @@ const CheckoutForm = ({ setOpen, data, user }: Props) => {
       </div>
 
       <div>
-        <PaymentElement 
+        <PaymentElement
           options={{
             layout: "tabs"
           }}
@@ -126,11 +126,10 @@ const CheckoutForm = ({ setOpen, data, user }: Props) => {
       </button>
 
       {message && (
-        <div className={`text-sm p-2 rounded ${
-          message.includes("successful") 
-            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" 
+        <div className={`text-sm p-2 rounded ${message.includes("successful")
+            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
             : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-        }`}>
+          }`}>
           {message}
         </div>
       )}
@@ -140,4 +139,3 @@ const CheckoutForm = ({ setOpen, data, user }: Props) => {
 
 export default CheckoutForm
 
-  

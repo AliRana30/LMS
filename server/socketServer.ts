@@ -24,7 +24,7 @@ interface NotificationData {
 export const initializeSocketServer = (httpServer: http.Server) => {
   const io = new SocketIOServer<ClientToServerEvents, ServerToClientEvents>(httpServer, {
     cors: {
-      origin: process.env.FRONTEND_URL || "http://localhost:3000",
+      origin: process.env.ORIGIN || "http://localhost:3000",
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -74,6 +74,6 @@ export const initializeSocketServer = (httpServer: http.Server) => {
   });
 
   console.log("New User Connected");
-  
+
   return io;
 };

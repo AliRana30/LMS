@@ -35,7 +35,7 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
         else {
             console.log("Opening login modal");
             openAuthModal(true)
-            setRoute("Login")
+            setRoute("login")
         }
     }
 

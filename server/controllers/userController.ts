@@ -369,7 +369,7 @@ export const deleteUser = catchAsyncErrors(async (req: Request, res: Response, n
       return next(new ErrorHandler("User Not found", 404))
     }
 
-    await user.deleteOne({ id })
+    await user.deleteOne()
 
     await redis.del(id)
 

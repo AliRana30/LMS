@@ -6,7 +6,7 @@ const socket_io_1 = require("socket.io");
 const initializeSocketServer = (httpServer) => {
     const io = new socket_io_1.Server(httpServer, {
         cors: {
-            origin: process.env.FRONTEND_URL || "http://localhost:3000",
+            origin: process.env.ORIGIN || "http://localhost:3000",
             methods: ["GET", "POST"],
             credentials: true,
         },

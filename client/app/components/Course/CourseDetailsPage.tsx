@@ -15,7 +15,7 @@ type Props = {
 }
 
 const CourseDetailsPage: FC<Props> = ({ id }) => {
-  const [route, setRoute] = useState("Login")
+  const [route, setRoute] = useState("login")
   const [open, setOpen] = useState(false)
   const { data, isLoading } = useGetCourseDetailsQuery(id)
   const { data: config, isLoading: configLoading, error: configError } = useGetStripePublishableKeyQuery({})

@@ -49,8 +49,11 @@ exports.editCourse = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, n
         const thumbnail = data.thumbnail;
         const courseId = req.params.id;
         const courseData = await Course_1.Course.findById(courseId);
-        if (thumbnail && !thumbnail.startsWith("https")) {
-            await cloudinary_1.default.v2.uploader.destroy(thumbnail.public_id);
+        if (thumbnail && typeof thumbnail === 'string' && !thumbnail.startsWith("https")) {
+            // New base64 image uploaded - destroy old thumbnail if exists
+            if (courseData?.thumbnail?.public_id) {
+                await cloudinary_1.default.v2.uploader.destroy(courseData.thumbnail.public_id);
+            }
             const myCloud = await cloudinary_1.default.v2.uploader.upload(thumbnail, {
                 folder: "Courses"
             });
@@ -59,10 +62,11 @@ exports.editCourse = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, n
                 url: myCloud.secure_url
             };
         }
-        if (thumbnail.startsWith("https")) {
+        else if (thumbnail && typeof thumbnail === 'string' && thumbnail.startsWith("https")) {
+            // Keeping existing thumbnail URL
             data.thumbnail = {
-                public_id: courseData?.thumbnail.public_id,
-                url: courseData?.thumbnail.url
+                public_id: courseData?.thumbnail?.public_id || "",
+                url: courseData?.thumbnail?.url || thumbnail
             };
         }
         const course = await Course_1.Course.findByIdAndUpdate(courseId, {
@@ -146,10 +150,13 @@ exports.getCourseByUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, r
             return next(new errorHandler_1.default("You are not eligible to access this course", 403));
         }
         const course = await Course_1.Course.findById(courseId);
+        if (!course) {
+            return next(new errorHandler_1.default("Course not found", 404));
+        }
         res.status(200).json({
             success: true,
             message: "Course fetched successfully",
-            courseExists
+            course
         });
     }
     catch (error) {
@@ -396,7 +403,7 @@ exports.deleteCourse = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res,
         if (!course) {
             return next(new errorHandler_1.default("Course Not found", 404));
         }
-        await course.deleteOne({ id });
+        await course.deleteOne();
         await redis_1.default.del(id);
         res.status(200).json({
             success: true,

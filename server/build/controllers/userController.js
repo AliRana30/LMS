@@ -278,7 +278,7 @@ exports.deleteUser = (0, catchAsyncErrors_1.catchAsyncErrors)(async (req, res, n
         if (!user) {
             return next(new errorHandler_1.default("User Not found", 404));
         }
-        await user.deleteOne({ id });
+        await user.deleteOne();
         await redis_1.default.del(id);
         res.status(200).json({
             success: true,

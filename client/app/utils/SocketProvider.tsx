@@ -30,7 +30,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
-    
+
     if (!ENDPOINT) {
       toast.error("Socket server URI not configured");
       return;
@@ -44,7 +44,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
       reconnectionDelay: 1000,
     });
 
-    socketInstance.on("connection", () => {
+    socketInstance.on("connect", () => {
       console.log("Socket connected:", socketInstance.id);
       setIsConnected(true);
     });

@@ -17,7 +17,7 @@ const Page: FC<Props> = (props) => {
   const { theme } = useTheme()
   const [open, setOpen] = useState(false)
   const [activeItem, setactiveItem] = useState(0)
-  const [route, setRoute] = useState("Login")
+  const [route, setRoute] = useState("login")
 
   return (
     <div className="min-h-screen">
@@ -28,7 +28,7 @@ const Page: FC<Props> = (props) => {
       <Courses />
       <Reviews />
       <FAQ />
-      <Footer/>
+      <Footer />
     </div>
   )
 }
