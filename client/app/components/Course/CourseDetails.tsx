@@ -213,7 +213,7 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                                 <Elements stripe={stripePromise} options={{ clientSecret }}>
                                     <CheckoutForm setOpen={setOpen} data={data} user={user} />
                                 </Elements>
-                            ) : (
+                            ) : !stripePromise || !clientSecret ? (
                                 <div className="text-center py-8">
                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
                                     <p className="text-gray-600 dark:text-gray-400">
@@ -222,8 +222,14 @@ const CourseDetails: FC<Props> = ({ data, stripePromise, clientSecret, setRoute,
                                     <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
                                         Please wait while we set up your secure payment.
                                     </p>
+                                    <button
+                                        onClick={() => setOpen(false)}
+                                        className="mt-6 px-4 py-2 text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600"
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
-                            )}
+                            ) : null}
                         </div>
                     </div>
                 </div>

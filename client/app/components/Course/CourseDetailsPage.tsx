@@ -26,25 +26,53 @@ const CourseDetailsPage: FC<Props> = ({ id }) => {
 
   // Initialize Stripe Promise when config is available
   useEffect(() => {
+    if (configError) {
+      console.error('Stripe config error:', configError)
+      const errorData = configError as any
+      if (errorData?.data?.message) {
+        console.error('Error message:', errorData.data.message)
+      }
+    }
     if (config?.publishableKey) {
+      console.log('Stripe publishable key loaded successfully')
       const publishableKey = config.publishableKey
       setStripePromise(loadStripe(publishableKey))
+    } else if (!configLoading && !config) {
+      console.warn('No Stripe config available and not loading')
     }
-  }, [config])
+  }, [config, configError, configLoading])
 
   // Create payment intent only when user is logged in and course has a price
   useEffect(() => {
     if (data?.course && user && data.course.price > 0) {
       const amount = Math.round(data.course.price * 100)
+      console.log('Creating payment intent for amount:', amount, 'User:', user?.name)
       createPaymentIntent(amount)
+    } else {
+      if (data?.course) {
+        console.log('Payment intent conditions:', {
+          hasCourse: !!data?.course,
+          hasUser: !!user,
+          price: data.course.price,
+          shouldCreateIntent: data.course.price > 0
+        })
+      }
     }
   }, [data, user, createPaymentIntent])
 
   useEffect(() => {
+    if (paymentError) {
+      console.error('Payment intent error:', paymentError)
+      const errorData = paymentError as any
+      if (errorData?.data?.message) {
+        console.error('Error message:', errorData.data.message)
+      }
+    }
     if (paymentIntentData) {
+      console.log('Payment intent created successfully')
       setClientSecret(paymentIntentData?.client_secret)
     }
-  }, [paymentIntentData])
+  }, [paymentIntentData, paymentError])
 
   if (isLoading) {
     return <Loader />

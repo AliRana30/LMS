@@ -14,6 +14,7 @@ const Reviews = (props: Props) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch('https://randomuser.me/api/?results=6')
+        if (!response.ok) throw new Error('Failed to fetch')
         const data = await response.json()
         
         const formattedReviews = data.results.map((user: any) => ({
@@ -26,9 +27,19 @@ const Reviews = (props: Props) => {
         }))
         
         setReviews(formattedReviews)
-        setIsLoading(false)
       } catch (error) {
         console.error('Error fetching reviews:', error)
+        // Fallback to static reviews if API fails
+        const fallbackReviews = Array.from({ length: 6 }, (_, i) => ({
+          name: `Student ${i + 1}`,
+          avatar: `https://ui-avatars.com/api/?name=Student+${i + 1}&background=37a39a&color=fff&size=200`,
+          rating: Math.floor(Math.random() * 2) + 4,
+          comment: getRandomComment(),
+          profession: getRandomProfession(),
+          date: getRandomDate()
+        }))
+        setReviews(fallbackReviews)
+      } finally {
         setIsLoading(false)
       }
     }
