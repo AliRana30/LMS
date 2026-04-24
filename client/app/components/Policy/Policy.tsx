@@ -94,7 +94,7 @@ For more information, visit our website or contact support at support@campuscore
   };
 
   return (
-    <div className={`font-poppins w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <div className={`font-poppins w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`} suppressHydrationWarning>
       
       {/* Hero Section */}
       <div className="w-full pt-32 pb-16 px-4">

@@ -31,7 +31,7 @@ export const navItemsData = [
 ]
 
 const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
 
   return (
     <>
@@ -42,7 +42,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
               className={`${
                 activeItem === index
                   ? "text-[#37a39a]"
-                  : "text-gray-900 dark:text-white"
+                  : resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
               } text-[18px] px-6 font-poppins font-[400] cursor-pointer hover:text-[#37a39a] transition-colors duration-300`}
             >
               {item.name}
@@ -59,7 +59,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
                 className={`${
                   activeItem === index
                     ? "text-[#37a39a]"
-                    : "text-gray-900 dark:text-white"
+                    : resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 } block py-5 text-[18px] px-6 font-poppins font-[400] cursor-pointer hover:text-[#37a39a] transition-colors duration-300`}
               >
                 {item.name}

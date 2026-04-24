@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 type Props = {}
 
 const Reviews = (props: Props) => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [reviews, setReviews] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   
@@ -88,12 +88,12 @@ const Reviews = (props: Props) => {
       <div className='w-[95%] md:w-[85%] mx-auto'>
         <div className='text-center mb-12'>
           <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+            resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             What Our Students Say
           </h1>
           <p className={`text-lg ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Join thousands of satisfied learners who have transformed their careers
           </p>
@@ -103,7 +103,7 @@ const Reviews = (props: Props) => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className={`p-6 rounded-xl animate-pulse ${
-                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+                resolvedTheme === 'dark' ? 'bg-gray-800' : 'bg-white'
               }`}>
                 <div className='flex items-center gap-4 mb-4'>
                   <div className='w-16 h-16 bg-gray-300 dark:bg-gray-700 rounded-full'></div>

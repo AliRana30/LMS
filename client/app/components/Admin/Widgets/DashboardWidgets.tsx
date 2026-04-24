@@ -58,7 +58,7 @@ const CircularProgressWithLabel: FC<Props> = ({ open, value = 0 }) => {
 }
 
 const DashboardWidgets: FC<Props> = ({ open }) => {
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     
     const { data: ordersData } = useGetAllOrdersQuery({}, { refetchOnMountOrArgChange: true })
     const { data: usersData } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true })
@@ -97,22 +97,22 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
 
     return (
         <div className={`w-full transition-all duration-300 font-poppins ${
-            theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+            resolvedTheme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
         }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
                 {/* Analytics Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
                     <div className="lg:col-span-8">
                         <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
-                            theme === 'dark'
+                            resolvedTheme === 'dark'
                                 ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
                                 : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
                         }`}>
                             <div className={`px-6 py-5 border-b ${
-                                theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
+                                resolvedTheme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
                             }`}>
                                 <h3 className={`text-lg font-semibold ${
-                                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                                    resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'
                                 }`}>
                                     Users Analytics
                                 </h3>
@@ -126,7 +126,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                     <div className="lg:col-span-4 space-y-6">
                         {/* Sales Widget */}
                         <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
-                            theme === 'dark'
+                            resolvedTheme === 'dark'
                                 ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
                                 : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
                         }`}>
@@ -134,19 +134,19 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                                 <div className="flex items-center justify-between">
                                     <div className="flex-1">
                                         <div className={`p-3 rounded-lg inline-flex mb-4 ${
-                                            theme === 'dark' ? 'bg-blue-500/20' : 'bg-blue-50'
+                                            resolvedTheme === 'dark' ? 'bg-blue-500/20' : 'bg-blue-50'
                                         }`}>
                                             <BsBorderLeft className={`text-3xl ${
-                                                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                                                resolvedTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'
                                             }`} />
                                         </div>
                                         <h5 className={`text-2xl font-bold mb-2 ${
-                                            theme === 'dark' ? 'text-white' : 'text-slate-900'
+                                            resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'
                                         }`}>
                                             {stats.totalOrders}
                                         </h5>
                                         <p className={`text-sm font-medium ${
-                                            theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                                            resolvedTheme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                                         }`}>
                                             Total Sales
                                         </p>
@@ -154,7 +154,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                                     <div className="flex flex-col items-center">
                                         <CircularProgressWithLabel value={stats.salesGrowth} open={open} />
                                         <span className={`text-sm font-semibold mt-2 ${
-                                            theme === 'dark' ? 'text-green-400' : 'text-green-600'
+                                            resolvedTheme === 'dark' ? 'text-green-400' : 'text-green-600'
                                         }`}>
                                             +{stats.salesGrowth}%
                                         </span>
@@ -165,7 +165,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
 
                         {/* New Users Widget */}
                         <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
-                            theme === 'dark'
+                            resolvedTheme === 'dark'
                                 ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
                                 : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
                         }`}>
@@ -173,19 +173,19 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                                 <div className="flex items-center justify-between">
                                     <div className="flex-1">
                                         <div className={`p-3 rounded-lg inline-flex mb-4 ${
-                                            theme === 'dark' ? 'bg-purple-500/20' : 'bg-purple-50'
+                                            resolvedTheme === 'dark' ? 'bg-purple-500/20' : 'bg-purple-50'
                                         }`}>
                                             <PiUsersFour className={`text-3xl ${
-                                                theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+                                                resolvedTheme === 'dark' ? 'text-purple-400' : 'text-purple-600'
                                             }`} />
                                         </div>
                                         <h5 className={`text-2xl font-bold mb-2 ${
-                                            theme === 'dark' ? 'text-white' : 'text-slate-900'
+                                            resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'
                                         }`}>
                                             {stats.newUsers}
                                         </h5>
                                         <p className={`text-sm font-medium ${
-                                            theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                                            resolvedTheme === 'dark' ? 'text-slate-400' : 'text-slate-600'
                                         }`}>
                                             New Users
                                         </p>
@@ -193,7 +193,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                                     <div className="flex flex-col items-center">
                                         <CircularProgressWithLabel value={stats.usersGrowth} open={open} />
                                         <span className={`text-sm font-semibold mt-2 ${
-                                            theme === 'dark' ? 'text-green-400' : 'text-green-600'
+                                            resolvedTheme === 'dark' ? 'text-green-400' : 'text-green-600'
                                         }`}>
                                             +{stats.usersGrowth}%
                                         </span>
@@ -207,15 +207,15 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                 {/* Orders Analytics Section */}
                 <div className="mb-6">
                     <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
-                        theme === 'dark'
+                        resolvedTheme === 'dark'
                             ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
                             : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
                     }`}>
                         <div className={`px-6 py-5 border-b ${
-                            theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
+                            resolvedTheme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
                         }`}>
                             <h3 className={`text-lg font-semibold ${
-                                theme === 'dark' ? 'text-white' : 'text-slate-900'
+                                resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'
                             }`}>
                                 Orders Analytics
                             </h3>
@@ -229,15 +229,15 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
                 {/* Recent Transactions Section */}
                 <div>
                     <div className={`rounded-2xl shadow-2xl backdrop-blur-sm transition-all duration-500 border overflow-hidden ${
-                        theme === 'dark'
+                        resolvedTheme === 'dark'
                             ? 'bg-slate-800/50 border-slate-700/50 shadow-slate-900/50'
                             : 'bg-white/70 border-slate-200/50 shadow-slate-200/50'
                     }`}>
                         <div className={`px-6 py-5 border-b ${
-                            theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
+                            resolvedTheme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'
                         }`}>
                             <h3 className={`text-lg font-semibold ${
-                                theme === 'dark' ? 'text-white' : 'text-slate-900'
+                                resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'
                             }`}>
                                 Recent Transactions
                             </h3>

@@ -6,7 +6,7 @@ import { MdLightbulb, MdPeople, MdTrendingUp } from 'react-icons/md';
 import { HiSparkles } from 'react-icons/hi';
 
 const About = () => {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const features = [
     {
@@ -40,14 +40,14 @@ const About = () => {
 
 
   return (
-    <div className={`font-poppins w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`} suppressHydrationWarning>
+    <div className={`font-poppins w-full ${resolvedTheme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`} suppressHydrationWarning>
       
       {/* Hero Section */}
       <div className="w-full pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center">
             <h1 className={`mt-10 text-4xl sm:text-3xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Empowering Learners
               <span className="block mt-3 bg-gradient-to-r from-[#37a39a] to-[#2d8b7f] bg-clip-text text-transparent">
@@ -55,7 +55,7 @@ const About = () => {
               </span>
             </h1>
             <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               We're on a mission to democratize education and make learning accessible to everyone, 
               everywhere. Join thousands of students transforming their careers through quality online education.
@@ -72,7 +72,7 @@ const About = () => {
               <div 
                 key={index}
                 className={`text-center p-6 sm:p-8 rounded-2xl transition-all duration-300 ${
-                  theme === 'dark' 
+                  resolvedTheme === 'dark' 
                     ? 'bg-gray-800 border border-gray-700 shadow-xl' 
                     : 'bg-white border border-gray-200 shadow-lg'
                 }`}
@@ -81,7 +81,7 @@ const About = () => {
                   {stat.number}
                 </div>
                 <div className={`text-sm sm:text-base font-medium ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   {stat.label}
                 </div>
@@ -96,12 +96,12 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={`text-3xl sm:text-4xl md:text-3xl font-bold mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Why Choose Us?
             </h2>
             <p className={`text-base sm:text-lg max-w-2xl mx-auto px-4 mb-10 ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
               We combine cutting-edge technology with expert instruction to deliver exceptional learning experiences
             </p>
@@ -112,25 +112,25 @@ const About = () => {
               <div 
                 key={index}
                 className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 ${
-                  theme === 'dark' 
+                  resolvedTheme === 'dark' 
                     ? 'bg-gray-800 border border-gray-700 shadow-xl' 
                     : 'bg-white border border-gray-200 shadow-lg'
                 }`}
               >
                 <div className={`inline-flex p-4 rounded-xl mb-4 ${
-                  theme === 'dark' 
+                  resolvedTheme === 'dark' 
                     ? 'bg-[#37a39a]/10 text-[#37a39a]' 
                     : 'bg-[#37a39a]/10 text-[#2d8b7f]'
                 }`}>
                   {feature.icon}
                 </div>
                 <h3 className={`text-lg sm:text-xl font-bold mb-3 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   {feature.title}
                 </h3>
                 <p className={`text-sm sm:text-base leading-relaxed ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   {feature.description}
                 </p>
@@ -142,24 +142,24 @@ const About = () => {
 
       {/* Developer Section */}
       <div className={`w-full py-16 px-4 ${
-        theme === 'dark' ? 'bg-gray-800/50' : 'bg-white'
+        resolvedTheme === 'dark' ? 'bg-gray-800/50' : 'bg-white'
       }`}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={`text-3xl sm:text-4xl md:text-3xl font-bold mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Meet the Developer
             </h2>
             <p className={`text-base sm:text-lg mb-10 ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
               Built with passion and dedication
             </p>
           </div>
 
           <div className={`rounded-3xl p-8 sm:p-12 ${
-            theme === 'dark' 
+            resolvedTheme === 'dark' 
               ? 'bg-gray-800 border border-gray-700 shadow-2xl' 
               : 'bg-gradient-to-br from-gray-50 to-white border border-gray-200 shadow-2xl'
           }`}>
@@ -168,7 +168,7 @@ const About = () => {
               {/* Info */}
               <div className="flex-1 text-center w-full">
                 <h3 className={`text-3xl sm:text-4xl font-bold mb-2 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   Ali Mahmood
                 </h3>
@@ -176,7 +176,7 @@ const About = () => {
                   Full Stack Developer & Creator
                 </p>
                 <p className={`text-base sm:text-lg leading-relaxed mb-8 max-w-3xl mx-auto ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                 }`}>
                   Passionate about creating innovative learning solutions that empower individuals to reach their full potential. 
                   With expertise in modern web technologies, I built this platform to bridge the gap between quality education 
@@ -185,31 +185,31 @@ const About = () => {
 
                 <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
                   <div className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm ${
-                    theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
+                    resolvedTheme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
                   }`}>
                     <FaCode className="text-[#37a39a]" size={16} />
                     <span className={`font-medium ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                     }`}>
                       React & Next.js
                     </span>
                   </div>
                   <div className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm ${
-                    theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
+                    resolvedTheme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
                   }`}>
                     <FaRocket className="text-[#37a39a]" size={16} />
                     <span className={`font-medium ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                     }`}>
                       Node.js & MongoDB
                     </span>
                   </div>
                   <div className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm ${
-                    theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
+                    resolvedTheme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
                   }`}>
                     <FaHeart className="text-red-500" size={16} />
                     <span className={`font-medium ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                     }`}>
                       Built with Love
                     </span>
@@ -223,7 +223,7 @@ const About = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className={`p-3 rounded-full transition-all ${
-                      theme === 'dark' 
+                      resolvedTheme === 'dark' 
                         ? 'bg-gray-700 hover:bg-gray-600 text-white' 
                         : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
                     }`}
@@ -235,7 +235,7 @@ const About = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className={`p-3 rounded-full transition-all ${
-                      theme === 'dark' 
+                      resolvedTheme === 'dark' 
                         ? 'bg-gray-700 hover:bg-gray-600 text-white' 
                         : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
                     }`}
@@ -245,7 +245,7 @@ const About = () => {
                   <a 
                     href="mailto:alimahmoodrana82@gmail.com" 
                     className={`p-3 rounded-full transition-all ${
-                      theme === 'dark' 
+                      resolvedTheme === 'dark' 
                         ? 'bg-gray-700 hover:bg-gray-600 text-white' 
                         : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
                     }`}
@@ -263,17 +263,17 @@ const About = () => {
       <div className="w-full py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <div className={`rounded-3xl p-8 sm:p-12 text-center ${
-            theme === 'dark' 
+            resolvedTheme === 'dark' 
               ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 shadow-2xl' 
               : 'bg-gradient-to-br from-[#37a39a]/5 to-blue-500/5 border border-[#37a39a]/20 shadow-xl'
           }`}>
             <h2 className={`text-3xl sm:text-4xl md:text-3xl font-bold mb-6 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Our Mission
             </h2>
             <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-8 ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               To create a world where quality education is accessible to everyone, regardless of location or background. 
               We believe that learning should be engaging, practical, and transformative.

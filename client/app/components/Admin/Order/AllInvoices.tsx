@@ -14,7 +14,7 @@ type Props = {
 }
 
 const AllInvoices: FC<Props> = ({ isDashboard }) => {
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const { data, isLoading } = useGetAllOrdersQuery({}, { refetchOnMountOrArgChange: true })
     const { data: usersData } = useGetAllUsersQuery({}, { refetchOnMountOrArgChange: true })
     const { data: coursesData } = useGetAllCoursesQuery({}, { refetchOnMountOrArgChange: true })
@@ -66,7 +66,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
                     href={`mailto:${params.row.userEmail}`} 
                     className="flex items-center justify-center h-full"
                 >
-                    <AiOutlineMail size={20} className={theme === "dark" ? "text-white" : "text-black"} />
+                    <AiOutlineMail size={20} className={resolvedTheme === "dark" ? "text-white" : "text-black"} />
                 </a>
             )
         }])
@@ -94,22 +94,22 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
         <div className={`w-full transition-all duration-300 font-poppins overflow-x-hidden`}>
             <div className={`${isDashboard ? '' : 'w-full'}`}>
                 <div className={`rounded-2xl shadow-xl backdrop-blur-sm transition-all duration-500 border overflow-hidden relative ${
-                    theme === 'dark'
+                    resolvedTheme === 'dark'
                         ? 'bg-slate-800/90 border-slate-700/50'
                         : 'bg-white border-slate-200/50'
                 }`}>
                     {!isDashboard && (
-                        <div className={`px-6 py-5 border-b ${theme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
+                        <div className={`px-6 py-5 border-b ${resolvedTheme === 'dark' ? 'border-slate-700/50' : 'border-slate-200/50'}`}>
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                                 <div>
-                                    <h2 className={`text-xl sm:text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                                    <h2 className={`text-xl sm:text-2xl font-bold ${resolvedTheme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                                         All Invoices
                                     </h2>
-                                    <p className={`mt-1 text-sm ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
+                                    <p className={`mt-1 text-sm ${resolvedTheme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>
                                         View and manage all transaction invoices
                                     </p>
                                 </div>
-                                <Receipt className={`w-8 h-8 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
+                                <Receipt className={`w-8 h-8 ${resolvedTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
                             </div>
                         </div>
                     )}
@@ -121,55 +121,55 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
                                 height: isDashboard ? '400px' : { xs: '500px', sm: '600px', md: '650px' },
                                 width: '100%',
                                 "& .MuiDataGrid-root": {
-                                    border: theme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
+                                    border: resolvedTheme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
                                     borderRadius: "12px",
                                     outline: "none",
                                 },
                                 "& .MuiDataGrid-columnSeparator": {
-                                    color: theme === "dark" ? "#475569" : "#e2e8f0",
+                                    color: resolvedTheme === "dark" ? "#475569" : "#e2e8f0",
                                 },
                                 "& .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon": {
-                                    color: theme === "dark" ? "#fff" : "#000",
+                                    color: resolvedTheme === "dark" ? "#fff" : "#000",
                                 },
                                 "& .MuiDataGrid-sortIcon": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiDataGrid-menuIconButton": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiDataGrid-filterIcon": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiDataGrid-row": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                     backgroundColor: "transparent !important",
                                     "&:hover": {
-                                        backgroundColor: theme === "dark" ? "#334155 !important" : "#f1f5f9 !important",
+                                        backgroundColor: resolvedTheme === "dark" ? "#334155 !important" : "#f1f5f9 !important",
                                     },
                                 },
                                 "& .MuiDataGrid-row.Mui-selected": {
-                                    backgroundColor: theme === "dark" ? "#475569 !important" : "#e2e8f0 !important",
+                                    backgroundColor: resolvedTheme === "dark" ? "#475569 !important" : "#e2e8f0 !important",
                                     "&:hover": {
-                                        backgroundColor: theme === "dark" ? "#64748b !important" : "#cbd5e1 !important",
+                                        backgroundColor: resolvedTheme === "dark" ? "#64748b !important" : "#cbd5e1 !important",
                                     },
                                 },
                                 "& .MuiTablePagination-root": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiDataGrid-cell": {
-                                    borderBottom: theme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    borderBottom: resolvedTheme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                     fontSize: { xs: '0.75rem', sm: '0.875rem', md: '0.9rem' },
                                 },
                                 "& .MuiDataGrid-columnHeaders": {
-                                    backgroundColor: theme === "dark" ? "#1e293b" : "#f8fafc",
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
-                                    borderBottom: theme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
+                                    backgroundColor: resolvedTheme === "dark" ? "#1e293b !important" : "#f8fafc !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
+                                    borderBottom: resolvedTheme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
                                     borderRadius: "12px 12px 0 0",
                                 },
                                 "& .MuiDataGrid-columnHeader": {
-                                    backgroundColor: theme === "dark" ? "#1e293b" : "#f8fafc",
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    backgroundColor: resolvedTheme === "dark" ? "#1e293b !important" : "#f8fafc !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                     "&:focus": {
                                         outline: "none",
                                     },
@@ -178,48 +178,48 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
                                     },
                                 },
                                 "& .MuiDataGrid-columnHeaderTitle": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                     fontWeight: "600",
                                     fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
                                 },
                                 "& .MuiDataGrid-virtualScroller": {
-                                    backgroundColor: theme === "dark" ? "#0f172a" : "#ffffff",
+                                    backgroundColor: resolvedTheme === "dark" ? "#0f172a" : "#ffffff",
                                 },
                                 "& .MuiDataGrid-footerContainer": {
-                                    backgroundColor: theme === "dark" ? "#1e293b" : "#f8fafc",
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
-                                    borderTop: theme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
+                                    backgroundColor: resolvedTheme === "dark" ? "#1e293b" : "#f8fafc",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
+                                    borderTop: resolvedTheme === "dark" ? "1px solid #475569" : "1px solid #e2e8f0",
                                     borderRadius: "0 0 12px 12px",
                                 },
                                 "& .MuiCheckbox-root": {
-                                    color: theme === "dark" ? "#3b82f6 !important" : "#2563eb !important",
+                                    color: resolvedTheme === "dark" ? "#3b82f6 !important" : "#2563eb !important",
                                 },
                                 "& .MuiDataGrid-toolbarContainer": {
                                     padding: "12px 16px",
                                     gap: "8px",
                                     "& .MuiButton-text": {
-                                        color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                        color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                         fontSize: "0.875rem",
                                         padding: "6px 12px",
                                     }
                                 },
                                 "& .MuiTablePagination-selectLabel": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiTablePagination-displayedRows": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiTablePagination-select": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiTablePagination-selectIcon": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiTablePagination-actions": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                                 "& .MuiIconButton-root": {
-                                    color: theme === "dark" ? "#fff !important" : "#000 !important",
+                                    color: resolvedTheme === "dark" ? "#fff !important" : "#000 !important",
                                 },
                             }}
                         >

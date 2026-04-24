@@ -53,7 +53,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center pt-[120px] pb-[60px]">
+    <div className="w-full min-h-screen flex items-center justify-center pt-[120px] pb-[60px]" suppressHydrationWarning>
       <div className='w-[95%] md:w-[85%] mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center'>
           
@@ -131,19 +131,25 @@ const Hero = () => {
                 <span className={`text-3xl font-bold font-poppins ${
                   resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10+</span>
-                <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Online Courses</span>
+                <span className={`text-sm font-poppins ${
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>Online Courses</span>
               </div>
               <div className='flex flex-col'>
                 <span className={`text-3xl font-bold font-poppins ${
                   resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10+</span>
-                <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Expert Tutors</span>
+                <span className={`text-sm font-poppins ${
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>Expert Tutors</span>
               </div>
               <div className='flex flex-col'>
                 <span className={`text-3xl font-bold font-poppins ${
                   resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10K+</span>
-                <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Happy Students</span>
+                <span className={`text-sm font-poppins ${
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>Happy Students</span>
               </div>
             </div>
 

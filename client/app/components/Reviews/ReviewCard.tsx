@@ -6,7 +6,7 @@ type Props = {
 }
 
 const ReviewCard: FC<Props> = ({ review }) => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
 
   const renderStars = (rating: number) => {
     const stars = []
@@ -30,7 +30,7 @@ const ReviewCard: FC<Props> = ({ review }) => {
 
   return (
     <div className={`p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 ${
-      theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+      resolvedTheme === 'dark' ? 'bg-gray-800' : 'bg-white'
     }`}>
       <div className='flex items-center gap-4 mb-4'>
         <img 
@@ -40,12 +40,12 @@ const ReviewCard: FC<Props> = ({ review }) => {
         />
         <div className='flex-1'>
           <h3 className={`font-bold text-lg ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+            resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             {review.name}
           </h3>
           <p className={`text-sm ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             {review.profession}
           </p>
@@ -55,14 +55,14 @@ const ReviewCard: FC<Props> = ({ review }) => {
       <div className='flex items-center justify-between mb-3'>
         {renderStars(review.rating)}
         <span className={`text-xs ${
-          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+          resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
         }`}>
           {review.date}
         </span>
       </div>
 
       <p className={`text-sm leading-relaxed ${
-        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+        resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
       }`}>
         "{review.comment}"
       </p>

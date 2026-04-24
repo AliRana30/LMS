@@ -14,7 +14,7 @@ type Props = {}
 
 const CoursesContent = (props: Props) => {
     const searchParams = useSearchParams()
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const search = searchParams?.get('title')
     const { data, isLoading } = useGetAllCoursesQuery({ title: search }, { refetchOnMountOrArgChange: true })
     const { data: courseData } = useGetHeroDataQuery("Categories", { refetchOnMountOrArgChange: true })
@@ -46,7 +46,7 @@ const CoursesContent = (props: Props) => {
     }
 
     return (
-        <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark'
+        <div className={`min-h-screen transition-colors duration-300 ${resolvedTheme === 'dark'
                 ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
                 : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
             }`}>
@@ -57,14 +57,14 @@ const CoursesContent = (props: Props) => {
             />
             <Header open={open} setOpen={setOpen} activeItem={1} route={route} setRoute={setRoute} />
 
-            <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto py-8">
+            <div className="w-[95%] md:w-[90%] lg:w-[85%] mx-auto pt-[120px] pb-8">
                 {/* Page Title */}
                 <div className="mb-8">
-                    <h1 className={`text-3xl md:text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    <h1 className={`text-3xl md:text-4xl font-bold mb-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                         }`}>
                         {search ? `Search Results for "${search}"` : 'All Courses'}
                     </h1>
-                    <p className={`text-base ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    <p className={`text-base ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                         }`}>
                         {courses?.length || 0} courses found
                     </p>
@@ -77,7 +77,7 @@ const CoursesContent = (props: Props) => {
                             onClick={() => setCategory("All")}
                             className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${category === "All"
                                     ? 'bg-[#37a39a] text-white shadow-lg'
-                                    : theme === 'dark'
+                                    : resolvedTheme === 'dark'
                                         ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                                         : 'bg-white text-gray-700 hover:bg-gray-100'
                                 }`}
@@ -90,7 +90,7 @@ const CoursesContent = (props: Props) => {
                                 onClick={() => setCategory(cat.title)}
                                 className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${category === cat.title
                                         ? 'bg-[#37a39a] text-white shadow-lg'
-                                        : theme === 'dark'
+                                        : resolvedTheme === 'dark'
                                             ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                                             : 'bg-white text-gray-700 hover:bg-gray-100'
                                     }`}
@@ -105,11 +105,11 @@ const CoursesContent = (props: Props) => {
                 {courses && courses.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {courses.map((course: any, index: number) => (
-                            <CourseCard key={index} course={course} theme={theme} />
+                            <CourseCard key={index} course={course} theme={resolvedTheme} />
                         ))}
                     </div>
                 ) : (
-                    <div className={`text-center py-16 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    <div className={`text-center py-16 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                         }`}>
                         <p className="text-xl font-semibold mb-2">No courses found</p>
                         <p>Try adjusting your search or category filter</p>

@@ -173,7 +173,9 @@ const Footer = () => {
                 <MdLocationOn className={`mt-0.5 flex-shrink-0 ${
                   resolvedTheme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
                 }`} size={18} />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <span className={`text-sm ${
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                   Lahore, Pakistan
                 </span>
               </li>

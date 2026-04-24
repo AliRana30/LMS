@@ -11,13 +11,13 @@ interface Props {
 }
 
 const Page: FC<Props> = (props) => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [open, setOpen] = useState(false)
   const [activeItem, setactiveItem] = useState(2)
   const [route, setRoute] = useState("login")
 
   return (
-    <div className={`transition-colors duration-300 ${theme === 'dark'
+    <div className={`transition-colors duration-300 ${resolvedTheme === 'dark'
         ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
         : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
       }`}>

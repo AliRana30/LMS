@@ -98,7 +98,9 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
   return (
     <div className='w-full relative font-poppins'>
       <div className={`fixed w-full h-[68px] z-[80] border-b transition-all duration-300 ${active
-        ? 'bg-white/80 dark:bg-gray-900/80 border-gray-200 dark:border-gray-700 backdrop-blur-md shadow-xl'
+        ? resolvedTheme === 'dark' 
+          ? 'bg-gray-900/80 border-gray-700 backdrop-blur-md shadow-xl' 
+          : 'bg-white/80 border-gray-200 backdrop-blur-md shadow-xl'
         : 'bg-transparent border-transparent'
         }`}>
         <div className='w-[95%] md:w-[92%] mx-auto h-full'>
