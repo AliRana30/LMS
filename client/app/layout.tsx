@@ -8,10 +8,10 @@ import SessionProviderWrapper from "./components/SessionProviderWrapper";
 import { SocketProvider } from "./utils/SocketProvider";
 import AuthLoader from "./components/Auth/AuthLoader";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${poppins.variable} ${josefinSans.variable} antialiased`}
+        className={`${poppins.variable} ${josefinSans.variable} antialiased`}
         suppressHydrationWarning
       >
         <Providers>

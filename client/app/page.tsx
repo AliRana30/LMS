@@ -7,14 +7,8 @@ import Courses from "./components/Course/Courses";
 import Reviews from "./components/Reviews/Reviews";
 import FAQ from "./components/FAQ/FAQ";
 import Footer from "./components/Footer";
-import { useTheme } from "next-themes";
 
-interface Props {
-
-}
-
-const Page: FC<Props> = (props) => {
-  const { theme } = useTheme()
+const Page = () => {
   const [open, setOpen] = useState(false)
   const [activeItem, setactiveItem] = useState(0)
   const [route, setRoute] = useState("login")
