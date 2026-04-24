@@ -1,4 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.join(__dirname, "../.env") });
 import mongoose from "mongoose";            
 
 const MONGO_URI:string = process.env.MONGO_URI || "";

@@ -1,15 +1,34 @@
-import "dotenv/config";
-import {Redis} from "ioredis";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.join(__dirname, "../.env") });
+import { Redis } from "ioredis";
 
-const REDIS_URI:string = process.env.REDIS_URI || "";
+const getRedisUrl = () => {
+  const uri = process.env.REDIS_URI;
+  if (uri) {
+    return uri.trim();
+  }
+  throw new Error("Redis connection failed: Missing URI");
+};
 
-const redisClient = ()=>{
-   if(REDIS_URI){
-      console.log("Redis connected successfully");
-      return REDIS_URI;
-   }
-   throw new Error("Redis connection failed");
-}
+const redis = new Redis(getRedisUrl(), {
+  maxRetriesPerRequest: null,
+  family: 4,
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
-const redis = new Redis(redisClient()); 
+redis.on("connect", () => {
+  console.log("Redis connecting...");
+});
+
+redis.on("ready", () => {
+  console.log("Redis connected successfully");
+});
+
+redis.on("error", (error) => {
+  console.error("Redis connection error:", error.message);
+});
+
 export default redis;
