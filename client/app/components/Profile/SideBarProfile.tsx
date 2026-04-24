@@ -24,8 +24,8 @@ const SideBarProfile: FC<Props> = ({
   setActive,
   logoutHandler,
 }) => {
-  const { theme } = useTheme()
-  const isDark = theme === 'dark'
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   return (
     <div

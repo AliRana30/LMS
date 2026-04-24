@@ -20,7 +20,7 @@ const Profile: React.FC<Props> = ({user}) => {
     const [logout, setLogout] = useState(false);
     const [mounted, setMounted] = useState(false);
     const router = useRouter();
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     
     const { isSuccess, error } = useLogOutQuery(undefined, {
         skip: !logout
@@ -57,16 +57,12 @@ const Profile: React.FC<Props> = ({user}) => {
     }
 
     return (
-        <div className={`min-h-screen transition-colors duration-300 ${
-            theme === 'dark' 
-                ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-                : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
-        }`}>
+        <div className="min-h-screen pt-[80px] transition-colors duration-300">
             
             <div className="container mx-auto px-4 py-8 font-poppins">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className={`text-2xl sm:text-3xl font-bold ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                         My Profile
                     </h1>

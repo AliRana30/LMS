@@ -10,7 +10,7 @@ type Props = {
 }
 
 const EnrolledCourses: FC<Props> = () => {
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const { data, isLoading } = useGetAllUserEnrolledCoursesQuery(undefined, {})
 
     if (isLoading) {
@@ -22,7 +22,7 @@ const EnrolledCourses: FC<Props> = () => {
     return (
         <div className="font-poppins">
             <h2 className={`text-2xl font-bold mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
+                resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
                 Enrolled Courses ({enrolledCourses.length})
             </h2>
@@ -35,7 +35,7 @@ const EnrolledCourses: FC<Props> = () => {
                             key={index}
                         >
                             <div className={`rounded-xl overflow-hidden transition-all duration-300  cursor-pointer ${
-                                theme === 'dark'
+                                resolvedTheme === 'dark'
                                     ? 'bg-gray-800 border border-gray-700 shadow-xl'
                                     : 'bg-white border border-gray-200 shadow-lg hover:shadow-xl'
                             }`}>
@@ -52,13 +52,13 @@ const EnrolledCourses: FC<Props> = () => {
                                 {/* Course Details */}
                                 <div className="p-4">
                                     <h3 className={`text-lg font-bold mb-2 line-clamp-2 ${
-                                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                        resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                     }`}>
                                         {course.name}
                                     </h3>
                                     
                                     <p className={`text-sm mb-3 line-clamp-2 ${
-                                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                                        resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                                     }`}>
                                         {course.description}
                                     </p>
@@ -68,16 +68,16 @@ const EnrolledCourses: FC<Props> = () => {
                                         <div className="flex items-center gap-1">
                                             <FaStar className="text-yellow-400" size={14} />
                                             <span className={`text-sm font-semibold ${
-                                                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                                                resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                                             }`}>
                                                 {course.ratings?.toFixed(1) || 0}
                                             </span>
                                         </div>
                                         
                                         <div className="flex items-center gap-1">
-                                            <FaUsers className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} size={14} />
+                                            <FaUsers className={resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'} size={14} />
                                             <span className={`text-sm ${
-                                                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                                                resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                                             }`}>
                                                 {course.purchased || 0} students
                                             </span>
@@ -99,14 +99,14 @@ const EnrolledCourses: FC<Props> = () => {
                 </div>
             ) : (
                 <div className={`text-center py-12 rounded-xl ${
-                    theme === 'dark'
+                    resolvedTheme === 'dark'
                         ? 'bg-gray-800 border border-gray-700'
                         : 'bg-white border border-gray-200 shadow-lg'
                 }`}>
                     <div className="mb-4">
                         <svg
                             className={`mx-auto h-16 w-16 ${
-                                theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
+                                resolvedTheme === 'dark' ? 'text-gray-600' : 'text-gray-400'
                             }`}
                             fill="none"
                             viewBox="0 0 24 24"
@@ -121,12 +121,12 @@ const EnrolledCourses: FC<Props> = () => {
                         </svg>
                     </div>
                     <p className={`text-lg font-semibold mb-2 ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                     }`}>
                         No Enrolled Courses Yet
                     </p>
                     <p className={`text-sm mb-6 ${
-                        theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
+                        resolvedTheme === 'dark' ? 'text-gray-500' : 'text-gray-600'
                     }`}>
                         Start your learning journey by enrolling in a course
                     </p>

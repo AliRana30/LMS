@@ -14,13 +14,13 @@ type Props = {
 const ProfileInfo: React.FC<Props> = ({ avatar, user }) => {
     const [name, setName] = useState(user?.name || "");
     const [loadUser, setLoadUser] = useState(false);
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
     const [editProfile, { isSuccess: success, error: editError, isLoading: editLoading }] = useEditProfileMutation();
     const { refetch } = useLoadUserQuery(undefined, { skip: !loadUser });
 
     const avatarUrl = avatar || user?.avatar?.url || user?.image || null;
-    const isDark = theme === 'dark';
+    const isDark = resolvedTheme === 'dark';
 
     const getInitials = (name: string) => {
         if (!name) return "U";

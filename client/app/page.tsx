@@ -1,7 +1,7 @@
 "use client"
 import { FC, useState } from "react";
 import Heading from "./utils/Heading";
-import Header from "./components/Header";
+import Header from './components/Header'
 import Hero from "./components/Hero";
 import Courses from "./components/Course/Courses";
 import Reviews from "./components/Reviews/Reviews";

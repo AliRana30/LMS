@@ -1,9 +1,9 @@
 "use client"
-import React, { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
 import NavItems from '../utils/NavItems'
 import { ThemeSwitcher } from '../utils/ThemeSwitcher'
-import { HiOutlineMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi'
+import { HiOutlineMenuAlt3, HiOutlineSearch, HiOutlineUserCircle } from 'react-icons/hi'
 import { AiOutlineClose } from 'react-icons/ai'
 import CustomModal from '../utils/CustomModal'
 import Login from './Auth/Login'
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [active, setactive] = useState(false)
   const [openSideBar, setopenSideBar] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -34,7 +34,7 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
 
   const { data, status } = useSession()
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation()
-  const {} = useLogoutQuery(undefined, { skip: !logout ? true : false })
+  const { } = useLogoutQuery(undefined, { skip: !logout ? true : false })
 
   useEffect(() => {
     setMounted(true)
@@ -97,21 +97,15 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
 
   return (
     <div className='w-full relative font-poppins'>
-      <div className={`fixed w-full h-[68px] z-[80] border-b transition-all duration-300 ${
-        active
-          ? theme === 'dark'
-            ? 'bg-gray-900/95 border-gray-700 backdrop-blur-sm shadow-xl'
-            : 'bg-white/95 border-gray-200 backdrop-blur-sm shadow-xl'
-          : theme === 'dark'
-            ? 'bg-gray-900 border-gray-800'
-            : 'bg-white border-gray-200'
-      }`}>
+      <div className={`fixed w-full h-[68px] z-[80] border-b transition-all duration-300 ${active
+        ? 'bg-white/80 dark:bg-gray-900/80 border-gray-200 dark:border-gray-700 backdrop-blur-md shadow-xl'
+        : 'bg-transparent border-transparent'
+        }`}>
         <div className='w-[95%] md:w-[92%] mx-auto h-full'>
           <div className='w-full h-full flex items-center justify-between'>
             <Link href="/" className='flex items-center'>
-              <h1 className={`text-[20px] sm:text-[22px] md:text-[25px] font-poppins font-semibold cursor-pointer hover:text-[#37a39a] transition-colors duration-300 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
+              <h1 className={`text-[20px] sm:text-[22px] md:text-[25px] font-poppins font-semibold cursor-pointer hover:text-[#37a39a] transition-colors duration-300 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
                 CampusCore
               </h1>
             </Link>
@@ -122,129 +116,114 @@ const Header: FC<Props> = ({ activeItem, open, setOpen, route, setRoute }) => {
                 <NavItems activeItem={activeItem} isMobile={false} />
               </div>
 
-              {/* Theme Switcher - Show on all sizes */}
-              <ThemeSwitcher />
+              <div className="flex items-center gap-4">
+                <ThemeSwitcher />
+                <HiOutlineSearch
+                  size={25}
+                  className={`cursor-pointer ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+                  onClick={() => setOpen(true)}
+                />
 
-              {/* Profile Icon - Show on all sizes */}
-              {user ? (
-                user?.avatar?.url ? (
+                {user ? (
                   <Link href="/profile">
                     <Image
-                      src={user.avatar.url}
-                      alt={user.name || 'User avatar'}
+                      src={user.avatar ? user.avatar.url : "/noimage.png"}
+                      alt="User Avatar"
                       width={35}
                       height={35}
-                      className='w-[35px] h-[35px] sm:w-[40px] sm:h-[40px] rounded-full cursor-pointer border-2 border-[#37a39a] hover:border-[#2d8f82] transition-all duration-300'
-                      style={{ objectFit: 'cover' }}
-                      unoptimized
+                      className="rounded-full cursor-pointer border-2 border-[#37a39a] hover:scale-110 transition-transform duration-300"
                     />
                   </Link>
                 ) : (
-                  <Link href="/profile">
-                    <HiOutlineUserCircle
-                      size={35}
-                      className={`cursor-pointer hover:text-[#37a39a] transition-colors duration-300 ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}
-                    />
-                  </Link>
-                )
-              ) : (
-                <HiOutlineUserCircle
-                  size={25}
-                  className={`cursor-pointer hover:text-[#37a39a] transition-colors duration-300 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}
-                  onClick={() => {
-                    setOpen(true)
-                    setRoute("login")
-                  }}
-                />
-              )}
+                  <HiOutlineUserCircle
+                    size={25}
+                    className={`cursor-pointer hover:text-[#37a39a] transition-colors duration-300 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+                    onClick={() => {
+                      setOpen(true)
+                      setRoute("login")
+                    }}
+                  />
+                )}
 
-              {/* Mobile Menu Icon */}
-              <div className='md:hidden'>
-                <HiOutlineMenuAlt3
-                  size={25}
-                  className={`cursor-pointer ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-                  onClick={() => setopenSideBar(true)}
-                />
+                {/* Mobile Menu Icon */}
+                <div className='md:hidden'>
+                  <HiOutlineMenuAlt3
+                    size={25}
+                    className={`cursor-pointer ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+                    onClick={() => setopenSideBar(true)}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Sidebar */}
-      {openSideBar && (
-        <div
-          className='fixed w-full h-screen top-0 left-0 z-[99999] bg-black/50'
-          onClick={handleClose}
-          id="screen"
-        >
-          <div className={`w-[75%] sm:w-[60%] fixed z-[999999999] h-screen top-0 right-0 transition-all duration-300 shadow-2xl ${
-            theme === 'dark'
-              ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
-              : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
-          }`}>
-            <div className='w-full flex justify-end pt-5 pr-5'>
-              <AiOutlineClose
-                size={25}
-                className={`cursor-pointer ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-                onClick={() => setopenSideBar(false)}
-              />
-            </div>
-            <div className='w-full flex flex-col items-center justify-start pt-8 px-4 h-full overflow-y-auto'>
-              {/* User Profile in Mobile Menu */}
-              {user && (
-                <Link 
-                  href="/profile" 
-                  className={`mb-8 flex flex-col items-center gap-3 hover:text-[#37a39a] transition-colors duration-300 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}
+        {/* Mobile Sidebar */}
+        {openSideBar && (
+          <div
+            className='fixed w-full h-screen top-0 left-0 z-[99999] bg-black/50'
+            onClick={handleClose}
+            id="screen"
+          >
+            <div className="w-[75%] sm:w-[60%] fixed z-[999999999] h-screen top-0 right-0 transition-all duration-300 shadow-2xl bg-white dark:bg-gray-900">
+              <div className='w-full flex justify-end pt-5 pr-5'>
+                <AiOutlineClose
+                  size={25}
+                  className="cursor-pointer text-gray-900 dark:text-white"
                   onClick={() => setopenSideBar(false)}
-                >
-                  {user?.avatar?.url ? (
-                    <Image
-                      src={user.avatar.url}
-                      alt={user.name || 'User avatar'}
-                      unoptimized
-                      width={60}
-                      height={60}
-                      className='rounded-full border-2 border-[#37a39a]'
-                      style={{ objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <HiOutlineUserCircle size={60} />
-                  )}
-                  <span className='font-poppins text-base font-semibold'>{user?.name || 'Profile'}</span>
-                </Link>
-              )}
+                />
+              </div>
+              <div className='w-full flex flex-col items-center justify-start pt-8 px-4 h-full overflow-y-auto'>
+                {/* User Profile in Mobile Menu */}
+                {user && (
+                  <Link
+                    href="/profile"
+                    className={`mb-8 flex flex-col items-center gap-3 hover:text-[#37a39a] transition-colors duration-300 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}
+                    onClick={() => setopenSideBar(false)}
+                  >
+                    {user?.avatar?.url ? (
+                      <Image
+                        src={user.avatar.url}
+                        alt={user.name || 'User avatar'}
+                        unoptimized
+                        width={60}
+                        height={60}
+                        className='rounded-full border-2 border-[#37a39a]'
+                        style={{ objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <HiOutlineUserCircle size={60} />
+                    )}
+                    <span className='font-poppins text-base font-semibold'>{user?.name || 'Profile'}</span>
+                  </Link>
+                )}
 
-              {/* Mobile Navigation Items */}
-              <NavItems activeItem={activeItem} isMobile={true} />
+                {/* Mobile Navigation Items */}
+                <NavItems activeItem={activeItem} isMobile={true} />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {open && (
-        <CustomModal 
-          open={open} 
-          setOpen={setOpen} 
-          setRoute={setRoute} 
-          component={
-            route === "login" ? Login : 
-            route === "signup" ? Signup : 
-            route === "verification" ? Verification : 
-            Login
-          } 
-          activeItem={activeItem} 
-          route={route} 
-        />
-      )}
+        {open && (
+          <CustomModal
+            open={open}
+            setOpen={setOpen}
+            setRoute={setRoute}
+            component={
+              route === "login" ? Login :
+                route === "signup" ? Signup :
+                  route === "verification" ? Verification :
+                    Login
+            }
+            activeItem={activeItem}
+            route={route}
+          />
+        )}
+      </div>
     </div>
   )
 }
 
-export default Header
+export default Header;

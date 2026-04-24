@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 const Hero = () => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const { data, isLoading } = useGetHeroDataQuery("Banner", {})
   const [search, setSearch] = useState('')
@@ -69,7 +69,7 @@ const Hero = () => {
                     className='object-cover'
                     priority
                     unoptimized
-                    style={{ mixBlendMode: theme === 'dark' ? 'lighten' : 'normal' }}
+                    style={{ mixBlendMode: resolvedTheme === 'dark' ? 'lighten' : 'normal' }}
                   />
                 </div>
               </div>
@@ -93,13 +93,13 @@ const Hero = () => {
 
           <div className='flex flex-col gap-6 order-1 md:order-2'>
             <h1 className={`text-4xl md:text-5xl lg:text-6xl font-poppins font-bold leading-tight ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               {data.layout.banner.title || 'Explore All Courses & Start Learning'} 
             </h1>
 
             <p className={`text-lg md:text-xl font-poppins leading-relaxed ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               {data.layout.banner.subTitle || 'Discover thousands of courses taught by expert instructors. Learn at your own pace and advance your career with CampusCore.'}
             </p>
@@ -107,7 +107,7 @@ const Hero = () => {
             <form onSubmit={handleSearch} className='relative w-full max-w-[600px]'>
               <div className='relative flex items-center'>
                 <BiSearch 
-                  className={`absolute left-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
+                  className={`absolute left-4 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}
                   size={24} 
                 />
                 <input
@@ -115,11 +115,7 @@ const Hero = () => {
                   placeholder='Search for courses....'
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-4 rounded-full border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 font-poppins shadow-lg ${
-                    theme === 'dark' 
-                      ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400' 
-                      : 'bg-white border-gray-200 text-gray-900 placeholder-gray-500'
-                  }`}
+                  className="w-full pl-12 pr-4 py-4 rounded-full border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 font-poppins shadow-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
                 <button
                   type='submit'
@@ -133,19 +129,19 @@ const Hero = () => {
             <div className='flex flex-wrap gap-8 mt-4'>
               <div className='flex flex-col'>
                 <span className={`text-3xl font-bold font-poppins ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10+</span>
                 <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Online Courses</span>
               </div>
               <div className='flex flex-col'>
                 <span className={`text-3xl font-bold font-poppins ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10+</span>
                 <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Expert Tutors</span>
               </div>
               <div className='flex flex-col'>
                 <span className={`text-3xl font-bold font-poppins ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>10K+</span>
                 <span className='text-sm dark:text-gray-400 text-gray-600 font-poppins'>Happy Students</span>
               </div>
@@ -158,11 +154,7 @@ const Hero = () => {
                 </button>
               </Link>
               <Link href='/about'>
-                <button className={`px-8 py-4 rounded-full font-poppins font-semibold border-2 hover:border-[#37a39a] transition-all duration-300 shadow-lg ${
-                  theme === 'dark' 
-                    ? 'bg-gray-800 text-white border-gray-700' 
-                    : 'bg-white text-gray-900 border-gray-200'
-                }`}>
+                <button className="px-8 py-4 rounded-full font-poppins font-semibold border-2 hover:border-[#37a39a] transition-all duration-300 shadow-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-200 dark:border-gray-700">
                   Learn More
                 </button>
               </Link>

@@ -37,7 +37,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     const socketInstance = io(ENDPOINT, {
-      transports: ["websocket"],
+      transports: ["polling", "websocket"],
       autoConnect: true,
       reconnection: true,
       reconnectionAttempts: 5,

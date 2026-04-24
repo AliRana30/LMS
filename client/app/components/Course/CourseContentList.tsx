@@ -11,7 +11,7 @@ type Props = {
 }
 
 const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDemo }) => {
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const [visibleSection, setVisibleSection] = useState<Set<string>>(
         new Set<string>()
     )
@@ -83,7 +83,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
 
                 // number of videos in current section
                 const sectionVideoCount = videosInSection.length
-                const sectionVideoLength = videosInSection.reduce((accumulator: any, video: any) => accumulator + video.videoLength, 0)
+                const sectionVideoLength = videosInSection.reduce((accumulator: any, video: any) => accumulator + (Number(video.videoLength) || 0), 0)
 
                 const sectionStartIndex: number = totalCount
                 totalCount += sectionVideoCount
@@ -96,14 +96,14 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                         {/* Render Video Section Header */}
                         <div className="flex items-center justify-between mb-2">
                             <h2 className={`text-lg md:text-xl font-semibold ${
-                                theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                             }`}>
                                 {section}
                             </h2>
                             <button
                                 onClick={() => toggleSection(section)}
                                 className={`p-2 rounded-full transition-all duration-300 ${
-                                    theme === 'dark'
+                                    resolvedTheme === 'dark'
                                         ? 'hover:bg-gray-700 text-gray-300'
                                         : 'hover:bg-gray-100 text-gray-600'
                                 }`}
@@ -117,7 +117,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                         </div>
 
                         <h5 className={`text-sm mb-3 ${
-                            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                            resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                         }`}>
                             {sectionVideoCount} Lesson{sectionVideoCount !== 1 ? 's' : ''} • {formatDuration(sectionVideoLength)}
                         </h5>
@@ -125,7 +125,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                         {isSectionVisible && (
                             <div className="space-y-2 mt-4">
                                 {videosInSection.map((video: any, videoIndex: number) => {
-                                    const videoLength = video.videoLength
+                                    const videoLength = Number(video.videoLength) || 0
                                     const videoNumber = videoIndex + 1 + sectionStartIndex
 
                                     return (
@@ -134,7 +134,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                                             className={`flex items-start justify-between p-3 rounded-lg transition-all duration-300 cursor-pointer ${
                                                 activeVideo === videoNumber - 1
                                                     ? 'bg-[#37a39a] bg-opacity-20'
-                                                    : theme === 'dark'
+                                                    : resolvedTheme === 'dark'
                                                     ? 'hover:bg-gray-800'
                                                     : 'hover:bg-gray-50'
                                             }`}
@@ -145,7 +145,7 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                                                     className={`flex-shrink-0 mt-1 ${
                                                         activeVideo === videoNumber - 1
                                                             ? 'text-[#37a39a]'
-                                                            : theme === 'dark'
+                                                            : resolvedTheme === 'dark'
                                                             ? 'text-gray-400'
                                                             : 'text-gray-500'
                                                     }`}
@@ -153,14 +153,14 @@ const CourseContentList: FC<Props> = ({ data, activeVideo, setActiveVideo, isDem
                                                 />
                                                 <div className="flex-1">
                                                     <h4 className={`text-sm md:text-base font-medium ${
-                                                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                                        resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                                     }`}>
                                                         {videoNumber}. {video.title}
                                                     </h4>
                                                 </div>
                                             </div>
                                             <span className={`text-xs flex-shrink-0 ml-2 ${
-                                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                                resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                             }`}>
                                                 {formatShortDuration(videoLength)}
                                             </span>

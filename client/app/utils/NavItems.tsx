@@ -42,7 +42,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
               className={`${
                 activeItem === index
                   ? "text-[#37a39a]"
-                  : theme === 'dark' ? "text-white" : "text-gray-900"
+                  : "text-gray-900 dark:text-white"
               } text-[18px] px-6 font-poppins font-[400] cursor-pointer hover:text-[#37a39a] transition-colors duration-300`}
             >
               {item.name}
@@ -59,7 +59,7 @@ const NavItems: FC<Props> = ({ activeItem, isMobile }) => {
                 className={`${
                   activeItem === index
                     ? "text-[#37a39a]"
-                    : theme === 'dark' ? "text-white" : "text-gray-900"
+                    : "text-gray-900 dark:text-white"
                 } block py-5 text-[18px] px-6 font-poppins font-[400] cursor-pointer hover:text-[#37a39a] transition-colors duration-300`}
               >
                 {item.name}

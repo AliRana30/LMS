@@ -5,17 +5,13 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaGithub } from 'react-
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md'
 
 const Footer = () => {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const year = new Date().getFullYear()
   
 
   return (
     <footer
-      className={`w-full font-poppins border-t transition-colors duration-300 ${
-        theme === 'dark'
-          ? 'bg-gray-900 border-gray-800'
-          : 'bg-white border-gray-200'
-      }`}
+      className="w-full font-poppins border-t border-gray-200 dark:border-gray-800 transition-colors duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
@@ -23,12 +19,12 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-4 mt-10">
             <h3 className={`text-2xl font-bold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               CampusCore
             </h3>
             <p className={`text-sm leading-relaxed ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
               Empowering learners worldwide with quality education. Learn, grow, and succeed with us.
             </p>
@@ -39,7 +35,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-2 rounded-full transition-all ${
-                  theme === 'dark'
+                  resolvedTheme === 'dark'
                     ? 'bg-gray-800 hover:bg-[#37a39a] text-gray-400 hover:text-white'
                     : 'bg-gray-100 hover:bg-[#37a39a] text-gray-600 hover:text-white'
                 }`}
@@ -51,7 +47,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-2 rounded-full transition-all ${
-                  theme === 'dark'
+                  resolvedTheme === 'dark'
                     ? 'bg-gray-800 hover:bg-[#37a39a] text-gray-400 hover:text-white'
                     : 'bg-gray-100 hover:bg-[#37a39a] text-gray-600 hover:text-white'
                 }`}
@@ -63,7 +59,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-2 rounded-full transition-all ${
-                  theme === 'dark'
+                  resolvedTheme === 'dark'
                     ? 'bg-gray-800 hover:bg-[#37a39a] text-gray-400 hover:text-white'
                     : 'bg-gray-100 hover:bg-[#37a39a] text-gray-600 hover:text-white'
                 }`}
@@ -74,11 +70,7 @@ const Footer = () => {
                 href="https://github.com/AliRana30"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-2 rounded-full transition-all ${
-                  theme === 'dark'
-                    ? 'bg-gray-800 hover:bg-[#37a39a] text-gray-400 hover:text-white'
-                    : 'bg-gray-100 hover:bg-[#37a39a] text-gray-600 hover:text-white'
-                }`}
+                className="p-2 rounded-full transition-all bg-gray-100 dark:bg-gray-800 hover:bg-[#37a39a] text-gray-600 dark:text-gray-400 hover:text-white"
               >
                 <FaGithub size={18} />
               </a>
@@ -88,7 +80,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="space-y-4 mt-10">
             <h4 className={`text-lg font-semibold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Quick Links
             </h4>
@@ -103,7 +95,7 @@ const Footer = () => {
                   <Link
                     href={item.url}
                     className={`text-sm transition-colors ${
-                      theme === 'dark'
+                      resolvedTheme === 'dark'
                         ? 'text-gray-400 hover:text-[#37a39a]'
                         : 'text-gray-600 hover:text-[#37a39a]'
                     }`}
@@ -118,7 +110,7 @@ const Footer = () => {
           {/* Legal */}
           <div className="space-y-4 ">
             <h4 className={`text-lg font-semibold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Legal
             </h4>
@@ -132,7 +124,7 @@ const Footer = () => {
                   <Link
                     href={item.url}
                     className={`text-sm transition-colors ${
-                      theme === 'dark'
+                      resolvedTheme === 'dark'
                         ? 'text-gray-400 hover:text-[#37a39a]'
                         : 'text-gray-600 hover:text-[#37a39a]'
                     }`}
@@ -147,19 +139,19 @@ const Footer = () => {
           {/* Contact */}
           <div className="space-y-4">
             <h4 className={`text-lg font-semibold ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+              resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Contact Us
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MdEmail className={`mt-0.5 flex-shrink-0 ${
-                  theme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
+                  resolvedTheme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
                 }`} size={18} />
                 <a
                   href="mailto:support@campuscore.com"
                   className={`text-sm transition-colors ${
-                    theme === 'dark'
+                    resolvedTheme === 'dark'
                       ? 'text-gray-400 hover:text-[#37a39a]'
                       : 'text-gray-600 hover:text-[#37a39a]'
                   }`}
@@ -169,21 +161,19 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <MdPhone className={`mt-0.5 flex-shrink-0 ${
-                  theme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
+                  resolvedTheme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
                 }`} size={18} />
                 <span className={`text-sm ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   +92 323 232 322
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <MdLocationOn className={`mt-0.5 flex-shrink-0 ${
-                  theme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
+                  resolvedTheme === 'dark' ? 'text-[#37a39a]' : 'text-[#2d8b7f]'
                 }`} size={18} />
-                <span className={`text-sm ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
                   Lahore, Pakistan
                 </span>
               </li>

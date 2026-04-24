@@ -26,7 +26,7 @@ type Props = {
 }
 
 const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, courseData, user, refetch }) => {
-     const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const [addNewQuestion, { isSuccess, error, isLoading }] = useAddNewQuestionMutation({})
     const [addReviewInCourse, { isSuccess: reviewSuccess, error: reviewError, isLoading: reviewLoading }] = useAddReviewInCourseMutation()
     const [addAnswerInQuestion, { isSuccess: answerSuccess, error: answerError, isLoading: answerLoading }] = useAddAnswerInQuestionMutation()
@@ -109,7 +109,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
             socketId.emit("notification", {
                 title: "New Question",
                 message: `You have a new question in ${data[activeVideo]?.title}`,
-                userId: courseData?.user?._id, 
+                userId: courseData?.user?._id,
             });
         }
         if (error) {
@@ -126,7 +126,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
             setAnswer('')
             setAnswerId('')
             refetch()
-            
+
             // Find the question owner to send notification
             const question = data[activeVideo]?.questions?.find((q: any) => q._id === answerId);
             if (question && user.role === "admin") {
@@ -163,7 +163,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
             socketId.emit("notification", {
                 title: "New Review",
                 message: `You have a new review in ${courseData?.name}`,
-                userId: courseData?.user?._id, 
+                userId: courseData?.user?._id,
             });
         }
         if (reviewError) {
@@ -180,7 +180,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
             setReviewReply('')
             setReviewReplyId('')
             refetch()
-            
+
             // Find the review to get the reviewer's userId
             const review = courseData?.reviews?.find((r: any) => r._id === reviewReplyId);
             if (review && user.role === "admin") {
@@ -222,8 +222,8 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                         onClick={() => activeVideo > 0 && setActiveVideo(activeVideo - 1)}
                         disabled={activeVideo === 0}
                         className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center text-sm sm:text-base ${activeVideo === 0
-                                ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
-                                : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
+                            ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
+                            : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
                             }`}
                     >
                         <AiOutlineArrowLeft size={20} />
@@ -234,8 +234,8 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                         onClick={() => activeVideo < data.length - 1 && setActiveVideo(activeVideo + 1)}
                         disabled={activeVideo === data.length - 1}
                         className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold transition-all duration-300 w-full sm:w-auto justify-center text-sm sm:text-base ${activeVideo === data.length - 1
-                                ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
-                                : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
+                            ? 'opacity-50 cursor-not-allowed bg-gray-300 dark:bg-gray-700 text-gray-500'
+                            : 'bg-[#37a39a] text-white hover:bg-[#2d8b7f] shadow-lg hover:shadow-xl transform hover:scale-105'
                             }`}
                     >
                         <span>Next Lesson</span>
@@ -245,12 +245,12 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
 
                 {/* Video Title */}
                 <div className="mb-4 sm:mb-6 md:mb-8">
-                    <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                         }`}>
                         {data[activeVideo]?.title}
                     </h1>
                     {data[activeVideo]?.description && (
-                        <p className={`text-sm sm:text-base leading-relaxed ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                        <p className={`text-sm sm:text-base leading-relaxed ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                             }`}>
                             {data[activeVideo]?.description}
                         </p>
@@ -264,10 +264,10 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                             key={index}
                             onClick={() => setActiveBar(index)}
                             className={`px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold transition-all duration-300 border-b-2 ${activeBar === index
-                                    ? 'border-[#37a39a] text-[#37a39a]'
-                                    : theme === 'dark'
-                                        ? 'border-transparent text-gray-400 hover:text-gray-200'
-                                        : 'border-transparent text-gray-600 hover:text-gray-900'
+                                ? 'border-[#37a39a] text-[#37a39a]'
+                                : resolvedTheme === 'dark'
+                                    ? 'border-transparent text-gray-400 hover:text-gray-200'
+                                    : 'border-transparent text-gray-600 hover:text-gray-900'
                                 }`}
                         >
                             {item}
@@ -279,7 +279,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                 <div className="mt-4 sm:mt-6">
                     {/* Overview Tab */}
                     {activeBar === 0 && (
-                        <div className={`text-sm sm:text-base leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                        <div className={`text-sm sm:text-base leading-relaxed ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                             }`}>
                             {/* Content displayed above in video title section */}
                             <p className="italic">Video content and description displayed above</p>
@@ -293,9 +293,9 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                 data[activeVideo]?.links.map((item: any, index: number) => (
                                     <div
                                         key={index}
-                                        className={`p-4 rounded-lg transition-all duration-300 ${theme === 'dark'
-                                                ? 'bg-gray-800 hover:bg-gray-700'
-                                                : 'bg-white hover:bg-gray-50'
+                                        className={`p-4 rounded-lg transition-all duration-300 ${resolvedTheme === 'dark'
+                                            ? 'bg-gray-800 hover:bg-gray-700'
+                                            : 'bg-white hover:bg-gray-50'
                                             }`}
                                     >
                                         <div className="flex items-start gap-3">
@@ -305,7 +305,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                             />
                                             <div>
                                                 {item.title && (
-                                                    <h2 className={`text-lg font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                                    <h2 className={`text-lg font-semibold mb-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                                         }`}>
                                                         {item.title}
                                                     </h2>
@@ -323,7 +323,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                     </div>
                                 ))
                             ) : (
-                                <p className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                <p className={`text-center py-8 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                     }`}>
                                     No resources available for this lesson.
                                 </p>
@@ -335,7 +335,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                     {activeBar === 2 && (
                         <>
                             <div className="mb-8">
-                                <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                <h2 className={`text-xl font-bold mb-4 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                     }`}>
                                     Ask a Question
                                 </h2>
@@ -348,7 +348,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                         className="rounded-full"
                                     />
                                     <div>
-                                        <h3 className={`font-semibold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                        <h3 className={`font-semibold flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                             }`}>
                                             {user?.name || 'Student'}
                                             {user?.role === 'admin' && (
@@ -357,31 +357,31 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                         </h3>
                                     </div>
                                 </div>
-                                { user?.role !== 'admin' && (
+                                {user?.role !== 'admin' && (
                                     <textarea
-                                    value={question}
-                                    onChange={(e) => setQuestion(e.target.value)}
-                                    placeholder="Ask a question about this lesson..."
-                                    rows={4}
-                                    className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${theme === 'dark'
+                                        value={question}
+                                        onChange={(e) => setQuestion(e.target.value)}
+                                        placeholder="Ask a question about this lesson..."
+                                        rows={4}
+                                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${resolvedTheme === 'dark'
                                             ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
                                             : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                                        }`}
-                                        />
-                                    )
-                                    }
-                                     { user?.role !== 'admin' && (
-                                <button
-                                    className="cursor-pointer mt-4 px-6 py-3 bg-[#37a39a] text-white rounded-full font-semibold hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                                    onClick={handleQuestionSubmit}
-                                >
-                                    {isLoading ? 'Posting...' : 'Post Question'}
-                                </button>
-                                     )}
+                                            }`}
+                                    />
+                                )
+                                }
+                                {user?.role !== 'admin' && (
+                                    <button
+                                        className="cursor-pointer mt-4 px-6 py-3 bg-[#37a39a] text-white rounded-full font-semibold hover:bg-[#2d8b7f] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                        onClick={handleQuestionSubmit}
+                                    >
+                                        {isLoading ? 'Posting...' : 'Post Question'}
+                                    </button>
+                                )}
                             </div>
 
                             <div className="space-y-6">
-                                <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                <h2 className={`text-2xl font-bold mb-6 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                     }`}>
                                     All Questions
                                 </h2>
@@ -390,7 +390,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                         <CommentItem
                                             key={index}
                                             item={item}
-                                            theme={theme}
+                                            resolvedTheme={resolvedTheme}
                                             answer={answer}
                                             setAnswer={setAnswer}
                                             answerId={answerId}
@@ -400,7 +400,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                         />
                                     ))
                                 ) : (
-                                    <p className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                    <p className={`text-center py-8 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                         }`}>
                                         No questions yet. Be the first to ask!
                                     </p>
@@ -414,7 +414,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                         <div className="space-y-6">
                             {!isReviewExists() && (
                                 <div className="mb-8">
-                                    <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                    <h2 className={`text-xl font-bold mb-4 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                         }`}>
                                         Write a Review
                                     </h2>
@@ -427,7 +427,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                             className="rounded-full"
                                         />
                                         <div>
-                                            <h3 className={`font-semibold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                            <h3 className={`font-semibold flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                                 }`}>
                                                 {user?.name || 'Student'}
                                                 {user?.role === 'admin' && (
@@ -439,7 +439,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
 
                                     {/* Star Rating */}
                                     <div className="mb-4">
-                                        <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                                        <p className={`text-sm mb-2 ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                                             }`}>
                                             Rate this course:
                                         </p>
@@ -454,12 +454,12 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                                         <AiFillStar size={32} className="text-yellow-400" />
                                                     ) : (
                                                         <AiOutlineStar size={32} className={
-                                                            theme === 'dark' ? 'text-gray-600' : 'text-gray-300'
+                                                            resolvedTheme === 'dark' ? 'text-gray-600' : 'text-gray-300'
                                                         } />
                                                     )}
                                                 </button>
                                             ))}
-                                            <span className={`ml-2 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                            <span className={`ml-2 text-sm ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                                 }`}>
                                                 {rating > 0 ? `${rating} out of 5` : 'Select rating'}
                                             </span>
@@ -471,9 +471,9 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                         onChange={(e) => setReview(e.target.value)}
                                         placeholder="Share your experience with this course..."
                                         rows={6}
-                                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${theme === 'dark'
-                                                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                                                : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${resolvedTheme === 'dark'
+                                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
+                                            : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                                             }`}
                                     />
                                     <button
@@ -488,7 +488,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
 
                             {/* Display Existing Reviews */}
                             <div>
-                                <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                                <h2 className={`text-2xl font-bold mb-6 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                     }`}>
                                     Course Reviews ({courseData?.reviews?.length || 0})
                                 </h2>
@@ -498,7 +498,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                             <ReviewItem
                                                 key={index}
                                                 item={item}
-                                                theme={theme}
+                                                resolvedTheme={resolvedTheme}
                                                 user={user}
                                                 reviewReply={reviewReply}
                                                 setReviewReply={setReviewReply}
@@ -509,7 +509,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
                                             />
                                         ))
                                     ) : (
-                                        <p className={`text-center py-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                        <p className={`text-center py-8 ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                             }`}>
                                             No reviews yet. Be the first to review this course!
                                         </p>
@@ -525,7 +525,7 @@ const CourseContentMedia: FC<Props> = ({ id, activeVideo, setActiveVideo, data, 
 }
 
 // Comment Item Component
-const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAnswerId, handleAnswerSubmit, answerLoading }) => {
+const CommentItem: FC<any> = ({ item, resolvedTheme, answer, setAnswer, answerId, setAnswerId, handleAnswerSubmit, answerLoading }) => {
     const [replyActive, setReplyActive] = useState(false)
 
     return (
@@ -540,17 +540,17 @@ const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAns
                 />
                 <div className="flex-1 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                        <h4 className={`font-semibold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        <h4 className={`font-semibold flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                             {item.user?.name}
                             {item.user?.role === 'admin' && (
                                 <MdVerified className='text-green-500' size={18} />
                             )}
                         </h4>
-                        <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                        <span className={`text-xs ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                             {format(item.createdAt)}
                         </span>
                     </div>
-                    <p className={`text-sm mb-3 break-words ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <p className={`text-sm mb-3 break-words ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                         {item.question}
                     </p>
                     <button
@@ -578,17 +578,17 @@ const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAns
                                 />
                                 <div className="flex-1 w-full">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                        <h5 className={`font-semibold text-sm flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                                        <h5 className={`font-semibold text-sm flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                                             {reply.user?.name}
                                             {reply.user?.role === 'admin' && (
                                                 <MdVerified className='text-green-500' size={16} />
                                             )}
                                         </h5>
-                                        <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        <span className={`text-xs ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                                             {format(reply.createdAt)}
                                         </span>
                                     </div>
-                                    <p className={`text-sm break-words ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                                    <p className={`text-sm break-words ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                         {reply.answer}
                                     </p>
                                 </div>
@@ -609,9 +609,9 @@ const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAns
                         }}
                         placeholder="Write your reply..."
                         rows={3}
-                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${theme === 'dark'
-                                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                                : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${resolvedTheme === 'dark'
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
+                            : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                             }`}
                     />
                     <div className="flex flex-col sm:flex-row gap-2 mt-3">
@@ -623,9 +623,9 @@ const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAns
                             {answerLoading ? 'Posting...' : 'Post Reply'}
                         </button>
                         <button
-                            className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${theme === 'dark'
-                                    ? 'bg-gray-700 text-white hover:bg-gray-600'
-                                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
+                            className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${resolvedTheme === 'dark'
+                                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                                : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
                                 }`}
                             onClick={() => {
                                 setReplyActive(false)
@@ -643,7 +643,7 @@ const CommentItem: FC<any> = ({ item, theme, answer, setAnswer, answerId, setAns
 }
 
 // Review Item Component
-const ReviewItem: FC<any> = ({ item, theme, user, reviewReply, setReviewReply, reviewReplyId, setReviewReplyId, handleReviewReplySubmit, reviewReplyLoading }) => {
+const ReviewItem: FC<any> = ({ item, resolvedTheme, user, reviewReply, setReviewReply, reviewReplyId, setReviewReplyId, handleReviewReplySubmit, reviewReplyLoading }) => {
     const [replyActive, setReplyActive] = useState(false)
     const isAdmin = user?.role === 'admin'
 
@@ -660,21 +660,21 @@ const ReviewItem: FC<any> = ({ item, theme, user, reviewReply, setReviewReply, r
                 <div className="flex-1 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                         <div>
-                            <h4 className={`font-semibold flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                            <h4 className={`font-semibold flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'
                                 }`}>
                                 {item.user?.name || 'Anonymous'}
                                 {item.user?.role === 'admin' && (
                                     <MdVerified className='text-green-500' size={18} />
                                 )}
                             </h4>
-                            <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                            <span className={`text-xs ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                                 }`}>
                                 {format(item.createdAt)}
                             </span>
                         </div>
                         <Ratings rating={item.rating} />
                     </div>
-                    <p className={`text-sm mt-2 mb-3 break-words ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    <p className={`text-sm mt-2 mb-3 break-words ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                         }`}>
                         {item.comment}
                     </p>
@@ -707,17 +707,17 @@ const ReviewItem: FC<any> = ({ item, theme, user, reviewReply, setReviewReply, r
                                 />
                                 <div className="flex-1 w-full">
                                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                                        <h5 className={`font-semibold text-sm flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                                        <h5 className={`font-semibold text-sm flex items-center gap-2 ${resolvedTheme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                                             {reply.user?.name}
                                             {reply.user?.role === 'admin' && (
                                                 <MdVerified className='text-green-500' size={16} />
                                             )}
                                         </h5>
-                                        <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                                        <span className={`text-xs ${resolvedTheme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                                             {format(reply.createdAt)}
                                         </span>
                                     </div>
-                                    <p className={`text-sm break-words ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                                    <p className={`text-sm break-words ${resolvedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                         {reply?.comment}
                                     </p>
                                 </div>
@@ -738,9 +738,9 @@ const ReviewItem: FC<any> = ({ item, theme, user, reviewReply, setReviewReply, r
                         }}
                         placeholder="Write your reply..."
                         rows={3}
-                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${theme === 'dark'
-                                ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
-                                : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                        className={`w-full p-4 rounded-lg border-2 focus:outline-none focus:border-[#37a39a] transition-all duration-300 ${resolvedTheme === 'dark'
+                            ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
+                            : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                             }`}
                     />
                     <div className="flex flex-col sm:flex-row gap-2 mt-3">
@@ -752,9 +752,9 @@ const ReviewItem: FC<any> = ({ item, theme, user, reviewReply, setReviewReply, r
                             {reviewReplyLoading ? 'Posting...' : 'Post Reply'}
                         </button>
                         <button
-                            className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${theme === 'dark'
-                                    ? 'bg-gray-700 text-white hover:bg-gray-600'
-                                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
+                            className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 ${resolvedTheme === 'dark'
+                                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                                : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
                                 }`}
                             onClick={() => {
                                 setReplyActive(false)
