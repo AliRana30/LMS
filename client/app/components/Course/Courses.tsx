@@ -18,11 +18,7 @@ const Courses = (props: Props) => {
   }, [data])
 
   return (
-    <div className={`w-full min-h-screen pt-[80px] pb-20 font-poppins transition-colors duration-300 ${
-      theme === 'dark' 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
-    }`} suppressHydrationWarning>
+    <div className="w-full min-h-screen pt-[80px] pb-20 font-poppins" suppressHydrationWarning>
       <div className='w-[95%] md:w-[85%] mx-auto'>
         <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'

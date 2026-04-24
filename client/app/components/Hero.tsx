@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 const Hero = () => {
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const { data } = useGetHeroDataQuery("Banner", { refetchOnMountOrArgChange: true })
+  const { data, isLoading } = useGetHeroDataQuery("Banner", {})
   const [search, setSearch] = useState('')
   const router = useRouter()
 
@@ -30,9 +30,9 @@ const Hero = () => {
     router.push(`/courses?title=${search}`)
   }
 
-  if (!mounted || !data?.layout?.banner?.image?.url) {
+  if (!mounted || isLoading || !data?.layout?.banner?.image?.url) {
     return (
-      <div className='w-full h-[100vh] flex items-center justify-center pt-[120px]'>
+      <div className='w-full min-h-screen flex items-center justify-center pt-[120px]'>
         <div className='w-[95%] md:w-[85%] mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
             <div className='flex items-center justify-center order-2 md:order-1'>
@@ -41,7 +41,10 @@ const Hero = () => {
               </div>
             </div>
             <div className='flex flex-col gap-6 order-1 md:order-2'>
-              <div className='h-[400px] bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg'></div>
+              <div className='h-[40px] w-3/4 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg'></div>
+              <div className='h-[40px] w-full bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg'></div>
+              <div className='h-[100px] w-full bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg'></div>
+              <div className='h-[50px] w-1/2 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg'></div>
             </div>
           </div>
         </div>
@@ -50,11 +53,7 @@ const Hero = () => {
   }
 
   return (
-    <div className={`w-full min-h-screen flex items-center justify-center pt-[120px] pb-[60px] transition-colors duration-300 ${
-      theme === 'dark' 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
-    }`}>
+    <div className="w-full min-h-screen flex items-center justify-center pt-[120px] pb-[60px]">
       <div className='w-[95%] md:w-[85%] mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center'>
           
